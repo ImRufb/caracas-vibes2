@@ -866,8 +866,6 @@
             setDoc, 
             doc, 
             query, 
-            orderBy, 
-            limit, 
             getDocs,
             onSnapshot, 
             updateDoc, 
@@ -1127,7 +1125,7 @@
                             }
                         });
                     } catch (err) {
-                        console.error("Error buscando e-status:", err);
+                        console.error("Error buscando estatus:", err);
                     }
                 }
                 
@@ -1154,7 +1152,6 @@
 
                 document.getElementById('displayWlType').textContent = selectedWlType;
 
-                // CORRECCIÓN DE FILTRADO DE PREGUNTAS POR CATEGORÍA SELECCIONADA
                 activeExamQuestions = questions.filter(q => {
                     const scope = q.wlScope || 'all';
                     return scope === 'all' || scope === selectedWlType;
@@ -1481,8 +1478,9 @@
             sectionQuestionnaire.classList.add('hidden');
             sectionSummary.classList.remove('hidden');
 
+            const payloadId = 'sub_' + Date.now();
             const payload = {
-                id: 'sub_' + Date.now(),
+                id: payloadId,
                 userInfo: userData,
                 answers: userAnswers,
                 scorePercentage: scorePercentage,
@@ -1492,10 +1490,7 @@
 
             if (firebaseReady && db) {
                 try {
-                    await addDoc(collection(db, "whitelist_submissions"), {
-                        ...payload,
-                        createdAt: serverTimestamp ? serverTimestamp() : new Date().toISOString()
-                    });
+                    await setDoc(doc(db, "whitelist_submissions", payloadId), payload);
                     showToast("¡Postulación enviada con éxito!", "success");
                 } catch (err) {
                     showToast("Postulación guardada localmente", "info");
@@ -1549,16 +1544,18 @@
 
             if (unsubscribeAdminListener) unsubscribeAdminListener();
 
-            const q = query(collection(db, "whitelist_submissions"), orderBy("createdAt", "desc"), limit(50));
+            const q = query(collection(db, "whitelist_submissions"));
 
             unsubscribeAdminListener = onSnapshot(q, (snapshot) => {
-                if (!snapshot.empty) {
-                    allSubmissions = [];
-                    snapshot.forEach((docSnap) => {
-                        allSubmissions.push({ id: docSnap.id, ...docSnap.data() });
-                    });
-                    persistSubmissionsLocally();
-                }
+                allSubmissions = [];
+                snapshot.forEach((docSnap) => {
+                    allSubmissions.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                
+                // Ordenar por fecha ISO de forma segura en tiempo real para todos los clientes
+                allSubmissions.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+                persistSubmissionsLocally();
                 renderSubmissions(allSubmissions);
             }, (err) => {
                 console.warn("Firestore inaccesible, usando LocalStorage:", err);
@@ -1776,7 +1773,6 @@
             const questionObj = { id, wlScope, category, title, type };
             if (type === 'choice') questionObj.options = optionsArray;
 
-            // Actualización inmediata en memoria y LocalStorage
             const existingIdx = questions.findIndex(item => item.id === id);
             if (existingIdx >= 0) {
                 questions[existingIdx] = questionObj;
