@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caracas Vibes2 | Servidor de Roleplay</title>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #070810;
+            --bg-card: rgba(18, 16, 38, 0.65);
+            --bg-card-hover: rgba(28, 24, 58, 0.85);
+            --border-glow: rgba(168, 85, 247, 0.25);
+            --accent-purple: #a855f7;
+            --accent-purple-glow: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --accent-pink: #ec4899;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        /* Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(7, 8, 16, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+        }
+
+        .logo span {
+            color: var(--accent-purple);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-purple);
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-purple {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-glow));
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-purple:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(168, 85, 247, 0.6);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            border: 1px solid var(--border-glow);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: var(--accent-purple);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 2rem 100px;
+            text-align: center;
+            position: relative;
+            background: 
+                linear-gradient(180deg, rgba(7, 8, 16, 0.75) 0%, rgba(7, 8, 16, 0.95) 100%),
+                url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+
+        .badge {
+            background: rgba(168, 85, 247, 0.12);
+            color: var(--accent-purple);
+            padding: 8px 18px;
+            border-radius: 50px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            margin-bottom: 1.2rem;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 0%, #d1d5db 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+
+        /* Section Global */
+        .section {
+            padding: 90px 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* Steps Section (3 Pasos) */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            position: relative;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            background: var(--bg-card-hover);
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+        }
+
+        .step-number {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-glow));
+            color: #fff;
+            font-weight: 800;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+        }
+
+        .step-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .step-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Tabs Section */
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glow);
+            color: var(--text-muted);
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-glow));
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 2.5rem;
+            gap: 2.5rem;
+            align-items: center;
+            backdrop-filter: blur(16px);
+        }
+
+        .tab-content.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .tab-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .tab-info p {
+            color: var(--text-muted);
+            margin-bottom: 1.8rem;
+            font-size: 1.05rem;
+        }
+
+        .tab-image {
+            width: 100%;
+            height: 300px;
+            border-radius: 16px;
+            border: 1px solid var(--border-glow);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Apply Cards Grid */
+        .apply-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .apply-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: left;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+
+        .apply-card:hover {
+            transform: translateY(-5px);
+            background: var(--bg-card-hover);
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+        }
+
+        .apply-card i {
+            font-size: 2.5rem;
+            color: var(--accent-purple);
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.4));
+        }
+
+        .apply-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .apply-card p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 8, 16, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #121026;
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.25);
+        }
+
+        .modal-content.text-center {
+            text-align: center;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.8rem;
+        }
+
+        .req-list {
+            list-style: none;
+            margin: 1.2rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .req-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .req-list li i {
+            color: var(--accent-purple);
+            margin-top: 4px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-glow);
+            padding: 3.5rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: rgba(7, 8, 16, 0.95);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .tab-content.active { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-gamepad"></i></div>
+                CARACAS <span>VIBES2</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#como-entrar">¿Cómo entrar?</a></li>
+                <li><a href="#sistemas">Sistemas</a></li>
+                <li><a href="#postulaciones">Postulaciones</a></li>
+            </ul>
+            <button class="btn btn-purple" onclick="openAgeModal()">
+                <i class="fa-solid fa-clipboard-check"></i> Hacer Whitelist
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section con Imagen Principal -->
+    <section class="hero">
+        <div class="badge">
+            <i class="fa-solid fa-bolt"></i> Servidor de Roleplay Serio & Portal Whitelist
+        </div>
+        <h1>El servidor de rol que estabas buscando</h1>
+        <p>Experimenta la máxima inmersión en GTA V con economías equilibradas, facciones exclusivas y mecánicas personalizadas en Caracas Vibes2.</p>
+        <div class="hero-btns">
+            <button class="btn btn-purple" onclick="openAgeModal()">Iniciar Test Whitelist</button>
+            <a href="#como-entrar" class="btn btn-outline">¿Cómo Entrar?</a>
+        </div>
+    </section>
+
+    <!-- Onboarding Section (3 Pasos) -->
+    <section class="section" id="como-entrar">
+        <div class="section-title">
+            <h2>Solo en 3 pasos</h2>
+            <p>Sigue esta breve guía para verificar tu acceso al servidor</p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Entrar a Discord</h3>
+                <p>Asegúrate de estar en el discord de la comunidad.</p>
+                <a href="https://discord.gg/dVgeRhC2kv" class="btn btn-outline"><i class="fa-solid fa-download"></i> Entrar a discord</a>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Leer las normativas</h3>
+                <p>Leer las normativas y sanciones correspondientes es fundamental antes de pasar por el proceso de whitelist.</p>
+                <a href="https://discord.gg/dVgeRhC2kv" target="_blank" class="btn btn-outline"><i class="fa-solid fa-download"></i> Leer normativas</a>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Realizar Whitelist</h3>
+                <p>Completa nuestro test interactivo para evaluar tus conocimientos de normativa roleplay.</p>
+                <button class="btn btn-purple" onclick="openAgeModal()"><i class="fa-solid fa-file-pen"></i> Realizar Examen</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Systems / Tabs Section con Imágenes -->
+    <section class="section" id="sistemas">
+        <div class="section-title">
+            <h2>Lo que nos hace distintos</h2>
+            <p>Sistemas propios diseñados para potenciar la experiencia de juego</p>
+        </div>
+
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('facciones')">Facciones</button>
+            <button class="tab-btn" onclick="switchTab('criminal')">Rol Criminal</button>
+            <button class="tab-btn" onclick="switchTab('civil')">Rol Civil</button>
+            <button class="tab-btn" onclick="switchTab('vehiculos')">Vehículos</button>
+        </div>
+
+        <!-- Tab 1: Facciones -->
+        <div class="tab-content active" id="tab-facciones">
+            <div class="tab-info">
+                <h3>Servicios de Emergencia y Gobierno</h3>
+                <p>Policía, Médicos, Mecánicos y Ammunation equipados con menús inmersivos, sistemas de despacho avanzados y gestión de vehículos oficiales.</p>
+                <button class="btn btn-outline" onclick="openReqModal('facciones')">Ver Requisitos</button>
+            </div>
+            <div class="tab-image" style="background-image: url('https://cdn.discordapp.com/attachments/1542022410814099546/1549053241499844658/cba982943d5f44092467306652d0c691.png?ex=6aa94bc0&is=6aa7fa40&hm=0bb2040f25cac3d36ba9e9b7cc8f03a2effde5f934d2a9bead447027fe2c9e35&');"></div>
+        </div>
+
+        <!-- Tab 2: Criminal -->
+        <div class="tab-content" id="tab-criminal">
+            <div class="tab-info">
+                <h3>Organizaciones y Bandas</h3>
+                <p>Sistema exclusivo de territorios, robos a bancos, tráfico de sustancias y mercado negro para organizaciones criminales.</p>
+                <button class="btn btn-outline" onclick="openReqModal('criminal')">Ver Requisitos</button>
+            </div>
+            <div class="tab-image" style="background-image: url('https://cdn.discordapp.com/attachments/1542022410814099546/1549052687348408390/50369d70d9ce783dffe4a038956f569a.png?ex=6aa94b3c&is=6aa7f9bc&hm=55f9c971ad716bb9216b7f6f6687480da3728ebfded871d33e5bf0ad8c4f1727&');"></div>
+        </div>
+
+        <!-- Tab 3: Civil -->
+        <div class="tab-content" id="tab-civil">
+            <div class="tab-info">
+                <h3>Negocios y Vida Social</h3>
+                <p>Abre tu propio local, contrata empleados, gestiona discotecas o clubes sin necesidad de entrar al lado oscuro de la ciudad.</p>
+                <button class="btn btn-outline" onclick="openReqModal('civil')">Ver Requisitos</button>
+            </div>
+            <div class="tab-image" style="background-image: url('https://cdn.discordapp.com/attachments/1504643560518193172/1542890677195636826/ChatGPT_Image_28_ago_2026_14_36_26.png?ex=6aa949ea&is=6aa7f86a&hm=f145107db23d3cc55b48d464aa54836961e5b47ba669f00f54579e0ac6aa8703&');"></div>
+        </div>
+
+        <!-- Tab 4: Vehículos -->
+        <div class="tab-content" id="tab-vehiculos">
+            <div class="tab-info">
+                <h3>Garajes y Tuning Custom</h3>
+                <p>Catálogo variado de vehículos optimizados con físicas de conducción realistas y talleres mecánicos personalizados.</p>
+                <button class="btn btn-outline" onclick="openReqModal('vehiculos')">Ver Requisitos</button>
+            </div>
+            <div class="tab-image" style="background-image: url('https://cdn.discordapp.com/attachments/1504643560518193172/1542688953126359050/image.png?ex=6aa936cc&is=6aa7e54c&hm=bc3f76b941cf24065d4a693df7fe4e6aa1f7c64e6d89655de939ca97df91e279&');"></div>
+        </div>
+    </section>
+
+    <!-- Applications Section -->
+    <section class="section" id="postulaciones">
+        <div class="apply-grid">
+            <div class="apply-card">
+                <i class="fa-solid fa-users"></i>
+                <h3>¿Quieres montar una banda?</h3>
+                <p>Reclama territorio y compite por el control con tu propia organización legal o ilegal.</p>
+                <a href="#" class="btn btn-outline">Postular Banda</a>
+            </div>
+            <div class="apply-card">
+                <i class="fa-solid fa-store"></i>
+                <h3>¿Quieres tu negocio?</h3>
+                <p>Solicita la apertura de locales comerciales y construye un imperio económico desde cero.</p>
+                <a href="#" class="btn btn-outline">Postular Negocio</a>
+            </div>
+            <div class="apply-card">
+                <i class="fa-solid fa-video"></i>
+                <h3>Creadores de Contenido</h3>
+                <p>Aplica al programa de creadores de Twitch, YouTube o Kick para obtener prioridad e insumos.</p>
+                <a href="#" class="btn btn-outline">Postular Streamer</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Verification (+16) -->
+    <div class="modal" id="ageModal">
+        <div class="modal-content text-center">
+            <span class="modal-close" onclick="closeAgeModal()">&times;</span>
+            <i class="fa-solid fa-user-shield fa-3x" style="color: var(--accent-purple); margin-bottom: 1.2rem; filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.4));"></i>
+            <h2>Verificación de Edad</h2>
+            <p style="color: var(--text-muted); margin: 0.8rem 0 1.5rem;">Confirma tu edad antes de proceder con el examen de Whitelist conceptual.</p>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="handleAgeResponse(false)">Menos de 16 años</button>
+                <button class="btn btn-purple" onclick="handleAgeResponse(true)">Más de 16 años</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Requisitos (Dinámico) -->
+    <div class="modal" id="reqModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeReqModal()">&times;</span>
+            <h2 id="reqTitle" style="margin-bottom: 0.5rem;">Requisitos</h2>
+            <p id="reqSubtitle" style="color: var(--text-muted); font-size: 0.9rem;">Consulta la normativa necesaria para esta sección:</p>
+            <ul class="req-list" id="reqList">
+                <!-- Se rellena vía JavaScript -->
+            </ul>
+            <div style="margin-top: 1.5rem; text-align: right;">
+                <button class="btn btn-purple" onclick="closeReqModal()">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Caracas Vibes2 no está afiliado ni respaldado por Rockstar Games, Take-Two Interactive o FiveM. Todos los derechos pertenecen a sus respectivos propietarios.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            event.target.classList.add('active');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+
+        function openAgeModal() {
+            document.getElementById('ageModal').style.display = 'flex';
+        }
+
+        function closeAgeModal() {
+            document.getElementById('ageModal').style.display = 'none';
+        }
+
+        function handleAgeResponse(isAdult) {
+            if (isAdult) {
+                window.location.href = "https://imrufb.github.io/pruebas-whitelist/";
+            } else {
+                alert("Lo sentimos, se requiere un mínimo de 16 años para ingresar al servidor principal con Whitelist.");
+                closeAgeModal();
+            }
+        }
+
+        // Datos de requisitos por categoría
+        const requirementsData = {
+            facciones: {
+                title: "Requisitos: Facciones y Gobierno",
+                items: [
+                    "Tener una edad mínima de 16 años (con excepciones según madurez).",
+                    "Contar con micrófono funcional y de buena calidad (sin ruido de fondo).",
+                    "Disponibilidad horaria mínima de 3 a 4 días por semana.",
+                    "Conocimiento básico y avanzado del reglamento general del servidor y de PD/EMS.",
+                    "No poseer advertencias (warns) graves recientes en tu historial."
+                ]
+            },
+            criminal: {
+                title: "Requisitos: Rol Criminal",
+                items: [
+                    "Haber superado el Whitelist del servidor y tener al menos 3 días de juego (in-game).",
+                    "Conocer detalladamente la normativa de bandas, robos y secuestros.",
+                    "Tener un concepto de personaje (Lore) coherente y bien estructurado.",
+                    "Evitar conductas de Powergaming o FailRP en enfrentamientos.",
+                    "Respetar el número máximo de integrantes permitidos por banda."
+                ]
+            },
+            civil: {
+                title: "Requisitos: Rol Civil y Negocios",
+                items: [
+                    "Presentar propuesta de negocio formal vía canal de Discord del servidor.",
+                    "Contar con un capital inicial mínimo dentro del rol para la inversión del local.",
+                    "Compromiso de mantener el negocio abierto y con actividad real de rol.",
+                    "No utilizar el negocio como fachada para actividades ilegales ocultas sin previa autorización Staff."
+                ]
+            },
+            vehiculos: {
+                title: "Requisitos: Vehículos y Tuning",
+                items: [
+                    "Disponer de carnet de conducir vigente emitido dentro del rol.",
+                    "Respetar las normativas de tránsito y límites de velocidad en zonas urbanas.",
+                    "Los vehículos importados/custom deben encajar con la estética del servidor.",
+                    "Prohibido el uso de vehículos con modificaciones que provoquan crashes o bugs visuales."
+                ]
+            }
+        };
+
+        function openReqModal(type) {
+            const data = requirementsData[type];
+            if (!data) return;
+
+            document.getElementById('reqTitle').textContent = data.title;
+            const listEl = document.getElementById('reqList');
+            listEl.innerHTML = '';
+
+            data.items.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fa-solid fa-circle-check"></i><span>${item}</span>`;
+                listEl.appendChild(li);
+            });
+
+            document.getElementById('reqModal').style.display = 'flex';
+        }
+
+        function closeReqModal() {
+            document.getElementById('reqModal').style.display = 'none';
+        }
+
+        // Cerrar modales haciendo clic fuera del contenido
+        window.onclick = function(event) {
+            const ageModal = document.getElementById('ageModal');
+            const reqModal = document.getElementById('reqModal');
+            if (event.target === ageModal) closeAgeModal();
+            if (event.target === reqModal) closeReqModal();
+        }
+    </script>
+</body>
+</html>
