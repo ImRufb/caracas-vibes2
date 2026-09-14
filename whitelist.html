@@ -12,20 +12,20 @@
 
     <style>
         :root {
-            --bg-dark: #070810;
-            --bg-card: rgba(18, 16, 38, 0.75);
-            --bg-card-hover: rgba(28, 24, 58, 0.85);
-            --bg-input: rgba(7, 8, 16, 0.9);
-            --border-glow: rgba(168, 85, 247, 0.25);
-            --border-focus: #a855f7;
-            --accent-purple: #a855f7;
-            --accent-purple-glow: #8b5cf6;
-            --accent-cyan: #06b6d4;
-            --accent-pink: #ec4899;
-            --accent-emerald: #10b981;
-            --accent-amber: #f59e0b;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
+            --bg-dark: #01040a;
+            --bg-card: rgba(6, 14, 28, 0.86);
+            --bg-card-hover: rgba(12, 26, 48, 0.92);
+            --bg-input: rgba(3, 8, 18, 0.95);
+            --border-glow: rgba(0, 115, 230, 0.4);
+            --border-focus: #00e5ff;
+            --accent-purple: #0055cc;
+            --accent-purple-glow: #0088ff;
+            --accent-cyan: #00e5ff;
+            --accent-pink: #ff2a85;
+            --accent-emerald: #00e676;
+            --accent-amber: #ffb300;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
         }
 
         * {
@@ -64,16 +64,16 @@
             position: fixed;
             inset: 0;
             z-index: 0;
-            background-color: rgba(7, 8, 16, 0.82);
-            backdrop-filter: blur(8px);
+            background-color: rgba(1, 4, 10, 0.90);
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
 
         /* Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: rgba(168, 85, 247, 0.4); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent-purple); }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 140, 255, 0.5); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan); }
 
         /* Navbar */
         header {
@@ -81,7 +81,7 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(7, 8, 16, 0.85);
+            background: rgba(1, 4, 10, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-glow);
         }
@@ -115,20 +115,21 @@
             align-items: center;
             justify-content: center;
             color: #fff;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
         }
 
-        .logo span { color: var(--accent-purple); }
+        .logo span { color: var(--accent-cyan); text-shadow: 0 0 10px rgba(0, 229, 255, 0.5); }
 
         .badge-tag {
-            background: rgba(168, 85, 247, 0.15);
-            color: var(--accent-purple);
+            background: rgba(0, 229, 255, 0.15);
+            color: var(--accent-cyan);
             padding: 3px 10px;
             border-radius: 50px;
-            border: 1px solid rgba(168, 85, 247, 0.3);
+            border: 1px solid rgba(0, 229, 255, 0.4);
             font-size: 0.75rem;
             font-weight: 700;
             margin-left: 8px;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
         }
 
         .nav-actions {
@@ -154,48 +155,52 @@
         }
 
         .btn-purple {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-glow));
+            background: linear-gradient(135deg, #0044cc, #0099ff);
             color: #fff;
-            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+            box-shadow: 0 4px 20px rgba(0, 153, 255, 0.4);
         }
 
         .btn-purple:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(168, 85, 247, 0.6);
+            box-shadow: 0 6px 30px rgba(0, 229, 255, 0.65);
+            filter: brightness(1.15);
         }
 
         .btn-outline {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.04);
             color: var(--text-main);
-            border: 1px solid var(--border-glow);
+            border: 1px solid rgba(0, 162, 255, 0.35);
             backdrop-filter: blur(10px);
         }
 
         .btn-outline:hover {
-            background: rgba(168, 85, 247, 0.15);
-            border-color: var(--accent-purple);
+            background: rgba(0, 229, 255, 0.15);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
         }
 
         .btn-danger {
-            background: rgba(236, 72, 153, 0.2);
-            border: 1px solid rgba(236, 72, 153, 0.4);
+            background: rgba(255, 42, 133, 0.2);
+            border: 1px solid rgba(255, 42, 133, 0.5);
             color: var(--accent-pink);
         }
 
         .btn-danger:hover {
-            background: rgba(236, 72, 153, 0.4);
+            background: rgba(255, 42, 133, 0.45);
             color: #fff;
+            box-shadow: 0 0 15px rgba(255, 42, 133, 0.4);
         }
 
         .btn-success {
-            background: rgba(16, 185, 129, 0.2);
-            border: 1px solid rgba(16, 185, 129, 0.4);
+            background: rgba(0, 230, 118, 0.2);
+            border: 1px solid rgba(0, 230, 118, 0.5);
             color: var(--accent-emerald);
         }
 
         .btn-success:hover {
-            background: rgba(16, 185, 129, 0.4);
+            background: rgba(0, 230, 118, 0.45);
             color: #fff;
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
         }
 
         /* Selector de Tipo de Whitelist */
@@ -217,20 +222,22 @@
         }
 
         .type-card:hover {
-            border-color: var(--accent-purple);
+            border-color: var(--accent-cyan);
             background: var(--bg-card-hover);
+            transform: translateY(-2px);
         }
 
         .type-card.selected {
-            border-color: var(--accent-purple);
-            background: rgba(168, 85, 247, 0.2);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+            border-color: var(--accent-cyan);
+            background: rgba(0, 229, 255, 0.18);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.35);
         }
 
         .type-card i {
             font-size: 1.8rem;
             margin-bottom: 0.5rem;
-            color: var(--accent-purple);
+            color: var(--accent-cyan);
+            filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
             display: block;
         }
 
@@ -267,7 +274,7 @@
             border-radius: 24px;
             padding: 2.5rem;
             backdrop-filter: blur(16px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.12);
             position: relative;
             overflow: hidden;
         }
@@ -282,9 +289,10 @@
             font-weight: 800;
             margin-bottom: 0.5rem;
             letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #ffffff 0%, #d1d5db 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #00e5ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 10px rgba(0, 229, 255, 0.25));
         }
 
         .card-header p {
@@ -308,7 +316,7 @@
         }
 
         .form-label i {
-            color: var(--accent-purple);
+            color: var(--accent-cyan);
             margin-right: 6px;
         }
 
@@ -326,7 +334,8 @@
 
         .form-input:focus, .form-select:focus, .form-textarea:focus {
             border-color: var(--border-focus);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.45);
+            background: rgba(3, 8, 18, 1);
         }
 
         /* Progress Bar */
@@ -349,16 +358,17 @@
 
         .progress-bar-bg {
             width: 100%;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.06);
             height: 10px;
             border-radius: 50px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(0, 229, 255, 0.25);
         }
 
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            background: linear-gradient(90deg, #0055cc, #00e5ff);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.8);
             border-radius: 50px;
             transition: width 0.3s ease;
             width: 0%;
@@ -383,21 +393,21 @@
         }
 
         .option-btn:hover {
-            border-color: var(--accent-purple);
+            border-color: var(--accent-cyan);
             background: var(--bg-card-hover);
         }
 
         .option-btn.selected {
-            border-color: var(--accent-purple);
-            background: rgba(168, 85, 247, 0.2);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+            border-color: var(--accent-cyan);
+            background: rgba(0, 229, 255, 0.18);
+            box-shadow: 0 0 18px rgba(0, 229, 255, 0.3);
         }
 
         .radio-dot {
             width: 18px;
             height: 18px;
             border-radius: 50%;
-            border: 2px solid var(--text-muted);
+            border: 2px solid var(--accent-cyan);
             margin-top: 3px;
             flex-shrink: 0;
             display: flex;
@@ -406,8 +416,9 @@
         }
 
         .option-btn.selected .radio-dot {
-            border-color: var(--accent-purple);
-            background: var(--accent-purple);
+            border-color: var(--accent-cyan);
+            background: var(--accent-cyan);
+            box-shadow: 0 0 10px var(--accent-cyan);
         }
 
         /* Tabs Admin */
@@ -433,8 +444,9 @@
         }
 
         .admin-tab-btn.active {
-            color: var(--accent-purple);
-            border-bottom-color: var(--accent-purple);
+            color: var(--accent-cyan);
+            border-bottom-color: var(--accent-cyan);
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
         }
 
         /* Toast notifications */
@@ -453,15 +465,16 @@
             padding: 1rem 1.25rem;
             border-radius: 14px;
             border: 1px solid var(--border-glow);
-            background: var(--bg-dark);
+            background: rgba(2, 7, 16, 0.96);
             color: var(--text-main);
             font-size: 0.85rem;
             font-weight: 600;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.3);
             pointer-events: auto;
+            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
 
@@ -469,7 +482,7 @@
         .modal {
             position: fixed;
             inset: 0;
-            background: rgba(7, 8, 16, 0.85);
+            background: rgba(1, 4, 10, 0.90);
             backdrop-filter: blur(12px);
             z-index: 2000;
             display: flex;
@@ -479,13 +492,13 @@
         }
 
         .modal-content {
-            background: #121026;
+            background: #040c1c;
             border: 1px solid var(--border-glow);
             border-radius: 24px;
             padding: 2.5rem;
             max-width: 500px;
             width: 100%;
-            box-shadow: 0 0 40px rgba(168, 85, 247, 0.25);
+            box-shadow: 0 0 50px rgba(0, 115, 230, 0.35);
         }
 
         footer {
@@ -494,7 +507,7 @@
             text-align: center;
             color: var(--text-muted);
             font-size: 0.85rem;
-            background: rgba(7, 8, 16, 0.95);
+            background: rgba(1, 4, 10, 0.95);
             position: relative;
             z-index: 10;
         }
@@ -524,7 +537,7 @@
         <div class="nav-container">
             <a href="#" class="logo">
                 <div class="logo-icon"><i class="fa-solid fa-gamepad"></i></div>
-                CARACAS <span>VIBES2</span>
+                CARACAS <span style="color: var(--accent-cyan);">VIBES2</span>
                 <span class="badge-tag">Whitelist RP</span>
             </a>
 
@@ -535,7 +548,7 @@
                 </button>
 
                 <button id="adminBtn" type="button" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem;">
-                    <i class="fa-solid fa-lock" style="color: var(--accent-purple);"></i>
+                    <i class="fa-solid fa-lock" style="color: var(--accent-cyan);"></i>
                     <span>Panel Admin</span>
                 </button>
             </div>
@@ -609,8 +622,8 @@
         <div id="sectionQuestionnaire" class="hidden">
             <div class="progress-box">
                 <div class="progress-info">
-                    <span style="color: var(--text-main);"><i class="fa-solid fa-list-check" style="color: var(--accent-purple);"></i> Examen: <span id="displayWlType" style="color: var(--accent-cyan); text-transform: uppercase;">GENERAL</span></span>
-                    <span id="progressText" style="color: var(--accent-purple);">0% (0 respondidas)</span>
+                    <span style="color: var(--text-main);"><i class="fa-solid fa-list-check" style="color: var(--accent-cyan);"></i> Examen: <span id="displayWlType" style="color: var(--accent-cyan); text-transform: uppercase;">GENERAL</span></span>
+                    <span id="progressText" style="color: var(--accent-cyan);">0% (0 respondidas)</span>
                 </div>
                 <div class="progress-bar-bg">
                     <div id="progressBar" class="progress-bar-fill"></div>
@@ -618,7 +631,7 @@
             </div>
 
             <div class="card">
-                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 800; color: var(--accent-purple); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 800; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;">
                     <span id="questionCategory">Conceptos Roleplay</span>
                     <span id="questionCounter">Pregunta 1</span>
                 </div>
@@ -648,25 +661,25 @@
         <!-- SECCIÓN 3: CONFIRMACIÓN Y RESULTADO -->
         <div id="sectionSummary" class="hidden">
             <div class="card" style="text-align: center;">
-                <div style="width: 70px; height: 70px; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-emerald); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--accent-emerald); margin: 0 auto 1.5rem;">
+                <div style="width: 70px; height: 70px; background: rgba(0, 230, 118, 0.2); border: 1px solid var(--accent-emerald); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--accent-emerald); margin: 0 auto 1.5rem; box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);">
                     <i class="fa-solid fa-circle-check"></i>
                 </div>
 
-                <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;">¡Postulación Enviada!</h2>
+                <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; color: #fff;">¡Postulación Enviada!</h2>
                 <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-                    Tus respuestas han sido registradas. El equipo administrativo de <strong style="color: var(--accent-purple);">Caracas Vibes2</strong> evaluará tu perfil a la brevedad.
+                    Tus respuestas han sido registradas. El equipo administrativo de <strong style="color: var(--accent-cyan);">Caracas Vibes2</strong> evaluará tu perfil a la brevedad.
                 </p>
 
                 <div style="background: var(--bg-input); border: 1px solid var(--border-glow); border-radius: 16px; padding: 1.25rem; text-align: left; font-size: 0.85rem; margin-bottom: 1.5rem;">
                     <p style="margin-bottom: 0.4rem; color: var(--text-muted);"><strong style="color: var(--text-main);">Modalidad Whitelist:</strong> <span id="sumWlType" style="color: var(--accent-cyan); font-weight: 800; text-transform: uppercase;">GENERAL</span></p>
                     <p style="margin-bottom: 0.4rem; color: var(--text-muted);"><strong style="color: var(--text-main);">Postulante:</strong> <span id="sumName">---</span></p>
-                    <p style="margin-bottom: 0.4rem; color: var(--text-muted);"><strong style="color: var(--text-main);">Discord:</strong> <span id="sumDiscord" style="color: var(--accent-purple); font-family: monospace;">---</span></p>
+                    <p style="margin-bottom: 0.4rem; color: var(--text-muted);"><strong style="color: var(--text-main);">Discord:</strong> <span id="sumDiscord" style="color: var(--accent-cyan); font-family: monospace;">---</span></p>
                     <p style="color: var(--text-muted);"><strong style="color: var(--text-main);">Completado:</strong> <span id="sumScore" style="color: var(--accent-emerald); font-weight: 700;">100%</span></p>
                 </div>
 
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <button id="downloadJsonBtn" type="button" class="btn btn-outline">
-                        <i class="fa-solid fa-download" style="color: var(--accent-purple);"></i> Descargar Copia (JSON)
+                        <i class="fa-solid fa-download" style="color: var(--accent-cyan);"></i> Descargar Copia (JSON)
                     </button>
                     <button id="restartBtn" type="button" class="btn btn-purple">
                         <i class="fa-solid fa-rotate-right"></i> Enviar Otra Postulación
@@ -680,7 +693,7 @@
             <div class="card">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
                     <div>
-                        <h2 style="font-size: 1.5rem; font-weight: 800;"><i class="fa-solid fa-user-shield" style="color: var(--accent-purple);"></i> Panel Whitelist</h2>
+                        <h2 style="font-size: 1.5rem; font-weight: 800;"><i class="fa-solid fa-user-shield" style="color: var(--accent-cyan);"></i> Panel Whitelist</h2>
                         <p style="font-size: 0.85rem; color: var(--text-muted);">Gestión de postulaciones, preguntas y personalización</p>
                     </div>
                     <button id="closeAdminBtn" type="button" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem;">
@@ -749,16 +762,16 @@
                         <div class="form-group">
                             <div style="display: flex; justify-content: space-between;" class="form-label">
                                 <span>Opacidad Oscura (Overlay)</span>
-                                <span id="opacityValDisplay" style="color: var(--accent-purple);">82%</span>
+                                <span id="opacityValDisplay" style="color: var(--accent-cyan);">90%</span>
                             </div>
-                            <input type="range" id="opacitySlider" min="10" max="95" value="82" style="width: 100%; accent-color: var(--accent-purple);">
+                            <input type="range" id="opacitySlider" min="10" max="95" value="90" style="width: 100%; accent-color: var(--accent-cyan);">
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">Vista Previa</label>
                             <div style="width: 100%; height: 160px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow); position: relative;">
                                 <div id="bgPreviewImg" style="width: 100%; height: 100%; background-size: cover; background-position: center;"></div>
-                                <div id="bgPreviewOverlay" style="position: absolute; inset: 0; background: rgba(7,8,16,0.82); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--text-muted);">
+                                <div id="bgPreviewOverlay" style="position: absolute; inset: 0; background: rgba(1,4,10,0.90); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--text-muted);">
                                     Vista Previa
                                 </div>
                             </div>
@@ -780,7 +793,7 @@
     <div id="statusModal" class="modal hidden">
         <div class="modal-content">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <h3 style="font-size: 1.2rem; font-weight: 800;"><i class="fa-solid fa-magnifying-glass" style="color: var(--accent-cyan);"></i> Consultar Estado de Whitelist</h3>
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: #fff;"><i class="fa-solid fa-magnifying-glass" style="color: var(--accent-cyan);"></i> Consultar Estado de Whitelist</h3>
                 <button id="closeStatusModalBtn" type="button" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem;"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
@@ -800,7 +813,7 @@
     <div id="questionModal" class="modal hidden">
         <div class="modal-content">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <h3 id="modalTitle" style="font-size: 1.2rem; font-weight: 800;">Agregar Pregunta</h3>
+                <h3 id="modalTitle" style="font-size: 1.2rem; font-weight: 800; color: #fff;">Agregar Pregunta</h3>
                 <button id="closeModalBtn" type="button" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem;"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
@@ -1056,7 +1069,7 @@
                 onSnapshot(doc(db, "whitelist_settings", "theme"), (docSnap) => {
                     if (docSnap.exists()) {
                         const data = docSnap.data();
-                        applyBackground(data.bgUrl || DEFAULT_BG, data.opacity || 82);
+                        applyBackground(data.bgUrl || DEFAULT_BG, data.opacity || 90);
                     }
                 });
             }
@@ -1064,14 +1077,14 @@
 
         function applyBackground(url, opacity) {
             bgLayer.style.backgroundImage = `url('${url}')`;
-            bgOverlay.style.backgroundColor = `rgba(7, 8, 16, ${opacity / 100})`;
+            bgOverlay.style.backgroundColor = `rgba(1, 4, 10, ${opacity / 100})`;
             
             bgUrlInput.value = url.startsWith('data:') ? '' : url;
             opacitySlider.value = opacity;
             opacityValDisplay.textContent = `${opacity}%`;
 
             bgPreviewImg.style.backgroundImage = `url('${url}')`;
-            bgPreviewOverlay.style.backgroundColor = `rgba(7, 8, 16, ${opacity / 100})`;
+            bgPreviewOverlay.style.backgroundColor = `rgba(1, 4, 10, ${opacity / 100})`;
         }
 
         function listenQuestionsRealtime() {
@@ -1109,7 +1122,7 @@
                 if (!queryVal) return;
 
                 statusResultContainer.classList.remove('hidden');
-                statusResultContainer.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 0.85rem;"><i class="fa-solid fa-spin fa-circle-notch" style="color: var(--accent-purple);"></i> Buscando tu solicitud...</div>`;
+                statusResultContainer.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 0.85rem;"><i class="fa-solid fa-spin fa-circle-notch" style="color: var(--accent-cyan);"></i> Buscando tu solicitud...</div>`;
 
                 let matches = [];
 
@@ -1232,8 +1245,8 @@
             opacitySlider.addEventListener('input', () => {
                 const val = opacitySlider.value;
                 opacityValDisplay.textContent = `${val}%`;
-                bgOverlay.style.backgroundColor = `rgba(7, 8, 16, ${val / 100})`;
-                bgPreviewOverlay.style.backgroundColor = `rgba(7, 8, 16, ${val / 100})`;
+                bgOverlay.style.backgroundColor = `rgba(1, 4, 10, ${val / 100})`;
+                bgPreviewOverlay.style.backgroundColor = `rgba(1, 4, 10, ${val / 100})`;
             });
 
             bgUrlInput.addEventListener('input', () => {
@@ -1269,7 +1282,7 @@
             });
 
             document.getElementById('resetBgBtn').addEventListener('click', async () => {
-                await saveBgSettings(DEFAULT_BG, 82);
+                await saveBgSettings(DEFAULT_BG, 90);
                 showToast("Fondo restaurado", "info");
             });
 
@@ -1331,7 +1344,7 @@
         function renderUserStatusResult(matches) {
             if (matches.length === 0) {
                 statusResultContainer.innerHTML = `
-                    <div style="background: rgba(236,72,153,0.1); border: 1px solid var(--accent-pink); padding: 1.25rem; border-radius: 16px; text-align: center;">
+                    <div style="background: rgba(255,42,133,0.12); border: 1px solid var(--accent-pink); padding: 1.25rem; border-radius: 16px; text-align: center;">
                         <i class="fa-solid fa-circle-xmark" style="color: var(--accent-pink); font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
                         <p style="font-size: 0.85rem; font-weight: 700; color: #fff;">No se encontraron postulaciones</p>
                         <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Verifica que hayas introducido correctamente tu usuario de Discord o correo registrado.</p>
@@ -1347,12 +1360,12 @@
                 const isRejected = item.status === 'rejected';
 
                 const statusColor = isApproved ? 'var(--accent-emerald)' : isRejected ? 'var(--accent-pink)' : 'var(--accent-amber)';
-                const statusBg = isApproved ? 'rgba(16, 185, 129, 0.12)' : isRejected ? 'rgba(236, 72, 153, 0.12)' : 'rgba(245, 158, 11, 0.12)';
+                const statusBg = isApproved ? 'rgba(0, 230, 118, 0.15)' : isRejected ? 'rgba(255, 42, 133, 0.15)' : 'rgba(255, 179, 0, 0.15)';
                 const statusIcon = isApproved ? 'fa-circle-check' : isRejected ? 'fa-circle-xmark' : 'fa-clock';
                 const statusText = isApproved ? 'ACEPTADO / APROBADO' : isRejected ? 'RECHAZADO / DENEGADO' : 'EN REVISIÓN (PENDIENTE)';
 
                 html += `
-                    <div style="background: var(--bg-input); border: 1px solid ${statusColor}; border-radius: 16px; padding: 1.25rem;">
+                    <div style="background: var(--bg-input); border: 1px solid ${statusColor}; border-radius: 16px; padding: 1.25rem; box-shadow: 0 0 15px rgba(0,229,255,0.08);">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
                             <span style="font-size: 0.75rem; font-weight: 800; color: var(--accent-cyan); text-transform: uppercase;">
                                 Modalidad: ${u.wlType || 'GENERAL'}
@@ -1365,7 +1378,7 @@
                         <p style="font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem;">${u.fullName || 'Postulante'}</p>
                         <p style="font-size: 0.75rem; color: var(--text-muted); font-family: monospace; margin-bottom: 0.75rem;">Discord: ${u.discordUser || 'N/A'}</p>
 
-                        <div style="background: rgba(0,0,0,0.3); padding: 0.75rem; border-radius: 10px; font-size: 0.75rem; color: var(--text-main);">
+                        <div style="background: rgba(0,0,0,0.5); padding: 0.75rem; border-radius: 10px; font-size: 0.75rem; color: var(--text-main);">
                             ${isApproved 
                                 ? '<p style="color: var(--accent-emerald); font-weight: 700;">¡Enhorabuena! Tu solicitud ha sido aprobada. Ya puedes solicitar tus roles en nuestro Discord oficial.</p>' 
                                 : isRejected 
@@ -1535,7 +1548,7 @@
 
         function loadSubmissionsRealtime() {
             const container = document.getElementById('submissionsList');
-            container.innerHTML = `<div style="text-align: center; padding: 2rem; color: var(--text-muted);"><i class="fa-solid fa-spin fa-circle-notch" style="color: var(--accent-purple);"></i> Cargando...</div>`;
+            container.innerHTML = `<div style="text-align: center; padding: 2rem; color: var(--text-muted);"><i class="fa-solid fa-spin fa-circle-notch" style="color: var(--accent-cyan);"></i> Cargando...</div>`;
 
             if (!firebaseReady || !db) {
                 renderSubmissions(allSubmissions);
@@ -1552,7 +1565,6 @@
                     allSubmissions.push({ id: docSnap.id, ...docSnap.data() });
                 });
                 
-                // Ordenar por fecha ISO de forma segura en tiempo real para todos los clientes
                 allSubmissions.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
 
                 persistSubmissionsLocally();
@@ -1586,10 +1598,10 @@
                 card.style.cssText = "background: var(--bg-input); border: 1px solid var(--border-glow); border-radius: 16px; padding: 1.25rem;";
 
                 const statusBadge = item.status === 'approved' 
-                    ? '<span style="color: var(--accent-emerald); background: rgba(16, 185, 129, 0.15); padding: 2px 8px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">Aprobado</span>'
+                    ? '<span style="color: var(--accent-emerald); background: rgba(0, 230, 118, 0.15); padding: 2px 8px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">Aprobado</span>'
                     : item.status === 'rejected'
-                    ? '<span style="color: var(--accent-pink); background: rgba(236, 72, 153, 0.15); padding: 2px 8px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">Rechazado</span>'
-                    : '<span style="color: #f59e0b; background: rgba(245, 158, 11, 0.15); padding: 2px 8px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">Pendiente</span>';
+                    ? '<span style="color: var(--accent-pink); background: rgba(255, 42, 133, 0.15); padding: 2px 8px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">Rechazado</span>'
+                    : '<span style="color: var(--accent-amber); background: rgba(255, 179, 0, 0.15); padding: 2px 8px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;">Pendiente</span>';
 
                 const u = item.userInfo || {};
                 const answers = item.answers || {};
@@ -1598,8 +1610,8 @@
                 questions.forEach(q => {
                     if (answers[q.id]) {
                         answersHtml += `
-                            <div style="background: rgba(255,255,255,0.02); padding: 0.75rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; margin-bottom: 0.5rem;">
-                                <p style="color: var(--accent-purple); font-weight: 700;">${q.title}</p>
+                            <div style="background: rgba(0, 229, 255, 0.04); padding: 0.75rem; border-radius: 10px; border: 1px solid rgba(0, 229, 255, 0.15); font-size: 0.8rem; margin-bottom: 0.5rem;">
+                                <p style="color: var(--accent-cyan); font-weight: 700;">${q.title}</p>
                                 <p style="color: var(--text-main);">${answers[q.id]}</p>
                             </div>
                         `;
@@ -1609,15 +1621,15 @@
                 card.innerHTML = `
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-glow); padding-bottom: 0.75rem; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">
                         <div>
-                            <h4 style="font-weight: 800; font-size: 1rem;">
+                            <h4 style="font-weight: 800; font-size: 1rem; color: #fff;">
                                 ${u.fullName || 'Usuario'} 
                                 <span style="font-weight: 400; font-size: 0.8rem; color: var(--text-muted);">(${u.age || '?'} años)</span>
-                                <span style="background: rgba(6,182,212,0.15); color: var(--accent-cyan); border: 1px solid rgba(6,182,212,0.3); padding: 2px 6px; border-radius: 6px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-left: 6px;">
+                                <span style="background: rgba(0,229,255,0.15); color: var(--accent-cyan); border: 1px solid rgba(0,229,255,0.35); padding: 2px 6px; border-radius: 6px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-left: 6px;">
                                     ${u.wlType || 'general'}
                                 </span>
                             </h4>
                             <p style="font-size: 0.75rem; color: var(--text-muted); font-family: monospace;">
-                                <i class="fa-brands fa-discord" style="color: var(--accent-purple);"></i> ${u.discordUser || 'N/A'} • ${u.email || 'N/A'}
+                                <i class="fa-brands fa-discord" style="color: var(--accent-cyan);"></i> ${u.discordUser || 'N/A'} • ${u.email || 'N/A'}
                             </p>
                         </div>
                         <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -1627,7 +1639,7 @@
                     </div>
 
                     <details style="margin-bottom: 0.75rem;">
-                        <summary style="cursor: pointer; font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">Ver Respuestas</summary>
+                        <summary style="cursor: pointer; font-size: 0.8rem; font-weight: 700; color: var(--accent-cyan);">Ver Respuestas</summary>
                         <div style="margin-top: 0.75rem;">${answersHtml || '<p style="font-size:0.75rem; color: var(--text-muted);">Sin respuestas asociadas.</p>'}</div>
                     </details>
 
@@ -1693,7 +1705,7 @@
 
                 item.innerHTML = `
                     <div>
-                        <span style="font-size: 0.7rem; font-weight: 800; color: var(--accent-purple); uppercase; letter-spacing: 0.5px;">
+                        <span style="font-size: 0.7rem; font-weight: 800; color: var(--accent-cyan); uppercase; letter-spacing: 0.5px;">
                             #${idx + 1} | ${q.category} 
                             <strong style="color: var(--accent-cyan);">[${(q.wlScope || 'all').toUpperCase()}]</strong>
                         </span>
@@ -1823,10 +1835,10 @@
             const toast = document.createElement('div');
             toast.className = 'toast';
 
-            const color = type === 'success' ? 'var(--accent-emerald)' : type === 'error' ? 'var(--accent-pink)' : 'var(--accent-purple)';
+            const color = type === 'success' ? 'var(--accent-emerald)' : type === 'error' ? 'var(--accent-pink)' : 'var(--accent-cyan)';
             
             toast.innerHTML = `
-                <i class="fa-solid ${type === 'success' ? 'fa-circle-check' : type === 'error' ? 'fa-circle-xmark' : 'fa-circle-info'}" style="color: ${color}; font-size: 1.1rem;"></i>
+                <i class="fa-solid ${type === 'success' ? 'fa-circle-check' : type === 'error' ? 'fa-circle-xmark' : 'fa-circle-info'}" style="color: ${color}; font-size: 1.1rem; filter: drop-shadow(0 0 5px ${color});"></i>
                 <span>${message}</span>
             `;
 
