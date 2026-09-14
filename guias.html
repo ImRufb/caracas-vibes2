@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SOLUCIÓN ERROR 153: Permite enviar el origen a YouTube de forma segura -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Caracas Vibes2 | Guías y Tutoriales</title>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #070810;
+            --bg-card: rgba(18, 16, 38, 0.65);
+            --bg-card-hover: rgba(28, 24, 58, 0.85);
+            --border-glow: rgba(168, 85, 247, 0.25);
+            --accent-purple: #a855f7;
+            --accent-purple-glow: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            --accent-pink: #ec4899;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        /* Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(7, 8, 16, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+        }
+
+        .logo span {
+            color: var(--accent-purple);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-purple);
+            text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-purple {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-glow));
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-purple:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(168, 85, 247, 0.6);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 2rem 80px;
+            text-align: center;
+            position: relative;
+            background: 
+                linear-gradient(180deg, rgba(7, 8, 16, 0.8) 0%, rgba(7, 8, 16, 0.95) 100%),
+                url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+
+        .badge {
+            background: rgba(168, 85, 247, 0.12);
+            color: var(--accent-purple);
+            padding: 8px 18px;
+            border-radius: 50px;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.2rem;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 0%, #d1d5db 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* Section Global */
+        .section {
+            padding: 60px 2rem 90px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Categories Filter Nav */
+        .categories-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .cat-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glow);
+            color: var(--text-muted);
+            padding: 0.75rem 1.6rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cat-btn.active, .cat-btn:hover {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-glow));
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+        }
+
+        /* Video Cards Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-6px);
+            background: var(--bg-card-hover);
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
+        }
+
+        .thumbnail-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumbnail-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(7, 8, 16, 0.4);
+            transition: background 0.3s;
+        }
+
+        .video-card:hover .thumbnail-container::before {
+            background: rgba(7, 8, 16, 0.1);
+        }
+
+        .play-icon {
+            position: relative;
+            z-index: 2;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-glow));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            padding-left: 3px;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+            transition: transform 0.3s;
+        }
+
+        .video-card:hover .play-icon {
+            transform: scale(1.15);
+        }
+
+        .video-badge {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(7, 8, 16, 0.85);
+            border: 1px solid var(--border-glow);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-main);
+            z-index: 2;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .video-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-info h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            line-height: 1.3;
+        }
+
+        .video-info p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        /* Video Modal Player */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(7, 8, 16, 0.9);
+            backdrop-filter: blur(16px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-video-container {
+            background: #121026;
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            max-width: 900px;
+            width: 90%;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.3);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.2rem;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.8rem;
+            z-index: 10;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-purple);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
+            height: 0;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+        }
+
+        .video-details-header {
+            padding: 1.5rem 2rem;
+        }
+
+        .video-details-header h2 {
+            font-size: 1.4rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .video-details-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-glow);
+            padding: 3.5rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background: rgba(7, 8, 16, 0.95);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.3rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-circle-play"></i></div>
+                CARACAS <span>GUÍAS</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#guias">Todas las Guías</a></li>
+                <li><a href="#guias">Categorías</a></li>
+            </ul>
+            <a href="https://imrufb.github.io/pruebas-whitelist/" target="_blank" class="btn btn-purple">
+                <i class="fa-solid fa-gamepad"></i> Ir al Servidor
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="badge">
+            <i class="fa-solid fa-film"></i> Academia de Roleplay & Tutoriales Oficiales
+        </div>
+        <h1>Aprende a rolear en Caracas Vibes2</h1>
+        <p>Explora nuestras vídeo-guías conceptuales y mecánicas para dominar las normativas, comandos y sistemas dentro del juego.</p>
+    </section>
+
+    <!-- Videos Section -->
+    <section class="section" id="guias">
+        
+        <!-- Categorías de Filtro -->
+        <div class="categories-nav">
+            <button class="cat-btn active" onclick="filterCategory('all', event)"><i class="fa-solid fa-border-all"></i> Todas</button>
+            <button class="cat-btn" onclick="filterCategory('basicos', event)"><i class="fa-solid fa-book"></i> Conceptos Básicos</button>
+            <button class="cat-btn" onclick="filterCategory('facciones', event)"><i class="fa-solid fa-shield-halved"></i> Facciones</button>
+            <button class="cat-btn" onclick="filterCategory('criminal', event)"><i class="fa-solid fa-mask"></i> Rol Criminal</button>
+            <button class="cat-btn" onclick="filterCategory('economia', event)"><i class="fa-solid fa-coins"></i> Economía y Trabajo</button>
+        </div>
+
+        <!-- Videoteca / Grid -->
+        <div class="video-grid">
+            
+            <!-- Video 1 -->
+            <div class="video-card" data-category="basicos" onclick="openVideoModal('Guía Básica: Conceptos Obligatorios de Roleplay', 'Aprende qué es Valorar Vida, PG, MG y DM con ejemplos inmersivos.', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')">
+                <div class="thumbnail-container" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80');">
+                    <div class="play-icon"><i class="fa-solid fa-play"></i></div>
+                    <span class="video-badge">05:40</span>
+                </div>
+                <div class="video-info">
+                    <span class="video-tag">Conceptos Básicos</span>
+                    <h3>Normativas Principales y Conceptos de Rol</h3>
+                    <p>Explicación práctica sobre cómo actuar en situaciones de riesgo y evitar faltas administrativas.</p>
+                </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="video-card" data-category="facciones" onclick="openVideoModal('Guía de Facciones: Sistema Policial y EMS', 'Conoce cómo funcionan los despachos, entornos y menús tácticos de emergencia.', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')">
+                <div class="thumbnail-container" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80');">
+                    <div class="play-icon"><i class="fa-solid fa-play"></i></div>
+                    <span class="video-badge">08:15</span>
+                </div>
+                <div class="video-info">
+                    <span class="video-tag">Facciones</span>
+                    <h3>Cómo ingresar y operar en Servicios de Emergencia</h3>
+                    <p>Mecánicas de arresto, interacción médica, código 10 y uso de radios oficiales.</p>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="video-card" data-category="criminal" onclick="openVideoModal('Guía Criminal: Territorios y Entornos Ilegales', 'Normativa detallada sobre robos a bancos, zonas rojas y guerras de bandas.', 'https://youtube-nocookie.com/embed/yN7Pee-ZBxg')">
+                <div class="thumbnail-container" style="background-image: url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80');">
+                    <div class="play-icon"><i class="fa-solid fa-play"></i></div>
+                    <span class="video-badge">12:30</span>
+                </div>
+                <div class="video-info">
+                    <span class="video-tag">Rol Criminal</span>
+                    <h3>Sistema de Bandas y Tráfico Legal e Ilegal</h3>
+                    <p>Requisitos de tiradores, negociaciones con PD y reglas para iniciar robos mayores.</p>
+                </div>
+            </div>
+
+            <!-- Video 4 -->
+            <div class="video-card" data-category="economia" onclick="openVideoModal('Guía Economía: Primeros Pasos y Trabajos Civiles', 'Genera tus primeros ingresos legales dentro de la ciudad sin infringir normas.', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')">
+                <div class="thumbnail-container" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80');">
+                    <div class="play-icon"><i class="fa-solid fa-play"></i></div>
+                    <span class="video-badge">06:20</span>
+                </div>
+                <div class="video-info">
+                    <span class="video-tag">Economía y Trabajo</span>
+                    <h3>Cómo Comprar tu Primer Vehículo y Propiedad</h3>
+                    <p>Uso de cajeros, cuentas bancarias compartidas y gestión de negocios legales.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Reproductor Modal de Video (INCLUYE ATRIBUTOS OBLIGATORIOS ANTI ERROR 153) -->
+    <div class="modal" id="videoModal">
+        <div class="modal-video-container">
+            <span class="modal-close" onclick="closeVideoModal()">&times;</span>
+            <div class="video-wrapper">
+                <iframe 
+                    id="modalIframe" 
+                    src="" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-details-header">
+                <h2 id="modalVideoTitle">Título del Video</h2>
+                <p id="modalVideoDesc">Descripción corta de la guía mostrada.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Caracas Vibes2 no está afiliado ni respaldado por Rockstar Games, Take-Two Interactive o FiveM. Todos los derechos pertenecen a sus respectivos propietarios.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Filtrado por categorías
+        function filterCategory(category, evt) {
+            const buttons = document.querySelectorAll('.cat-btn');
+            const cards = document.querySelectorAll('.video-card');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            if(evt) evt.currentTarget.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Extraer únicamente el ID de 11 caracteres de YouTube
+        function extractYouTubeID(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        // Abrir reproductor modal con el dominio de privacidad estricta
+        function openVideoModal(title, desc, videoUrl) {
+            document.getElementById('modalVideoTitle').textContent = title;
+            document.getElementById('modalVideoDesc').textContent = desc;
+
+            const videoId = extractYouTubeID(videoUrl);
+
+            if (videoId) {
+                // SOLUCIÓN CLAVE AL ERROR 153: Uso de youtube-nocookie.com
+                const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+                document.getElementById('modalIframe').src = embedUrl;
+            } else {
+                document.getElementById('modalIframe').src = videoUrl;
+            }
+
+            document.getElementById('videoModal').style.display = 'flex';
+        }
+
+        // Cerrar reproductor y detener audio
+        function closeVideoModal() {
+            document.getElementById('videoModal').style.display = 'none';
+            document.getElementById('modalIframe').src = ""; 
+        }
+
+        // Cerrar modal al hacer clic fuera del cuadro principal
+        window.onclick = function(event) {
+            const videoModal = document.getElementById('videoModal');
+            if (event.target === videoModal) closeVideoModal();
+        }
+    </script>
+</body>
+</html>
