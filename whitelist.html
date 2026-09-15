@@ -688,7 +688,7 @@
             </div>
         </div>
 
-        <!-- SECCIÓN 4: PANEL DE ADMINISTRACIÓN -->
+        <!-- SECCIÓN 4: PANEL DE ADMINISTRACIÓN (FIREBASE AUTH) -->
         <div id="sectionAdmin" class="hidden">
             <div class="card">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
@@ -701,87 +701,121 @@
                     </button>
                 </div>
 
-                <!-- Tabs Admin -->
-                <div class="admin-tabs">
-                    <button id="tabSubmissionsBtn" class="admin-tab-btn active"><i class="fa-solid fa-inbox"></i> Postulaciones</button>
-                    <button id="tabQuestionsBtn" class="admin-tab-btn"><i class="fa-solid fa-pen-to-square"></i> Gestor de Preguntas</button>
-                    <button id="tabBgBtn" class="admin-tab-btn"><i class="fa-solid fa-image"></i> Personalizar Fondo</button>
-                </div>
-
-                <!-- PESTAÑA 1: SUBMISSIONS -->
-                <div id="tabSubmissionsContent">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
-                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                            <button data-filter="all" class="admin-filter-btn btn btn-purple" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Todos</button>
-                            <button data-filter="pending" class="admin-filter-btn btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Pendientes</button>
-                            <button data-filter="approved" class="admin-filter-btn btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Aprobados</button>
-                            <button data-filter="rejected" class="admin-filter-btn btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Rechazados</button>
-                            
-                            <!-- Filtros por Modalidad -->
-                            <span style="color: var(--border-glow);">|</span>
-                            <button data-wlfilter="all" class="admin-wlfilter-btn btn btn-purple" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Todas Mod.</button>
-                            <button data-wlfilter="general" class="admin-wlfilter-btn btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">General</button>
-                            <button data-wlfilter="delictivo" class="admin-wlfilter-btn btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Delictivo</button>
-                            <button data-wlfilter="legal" class="admin-wlfilter-btn btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Legal</button>
-                        </div>
-                        <span id="submissionCount" style="font-size: 0.8rem; color: var(--text-muted); font-family: monospace;">0 postulaciones</span>
-                    </div>
-
-                    <div id="submissionsList" style="display: flex; flex-direction: column; gap: 1rem;"></div>
-                </div>
-
-                <!-- PESTAÑA 2: GESTOR PREGUNTAS -->
-                <div id="tabQuestionsContent" class="hidden">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                        <h3 style="font-size: 1.1rem; font-weight: 700;">Preguntas Activas</h3>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <button id="resetDefaultQuestionsBtn" type="button" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem;">
-                                <i class="fa-solid fa-rotate-left"></i> Restaurar Predeterminadas
-                            </button>
-                            <button id="addQuestionBtn" type="button" class="btn btn-purple" style="padding: 0.5rem 1rem; font-size: 0.8rem;">
-                                <i class="fa-solid fa-plus"></i> Nueva Pregunta
-                            </button>
-                        </div>
-                    </div>
-                    <div id="questionsEditorList" style="display: flex; flex-direction: column; gap: 0.8rem;"></div>
-                </div>
-
-                <!-- PESTAÑA 3: PERSONALIZAR FONDO -->
-                <div id="tabBgContent" class="hidden">
-                    <form id="bgConfigForm">
-                        <div class="form-group">
-                            <label class="form-label">URL de Imagen de Fondo</label>
-                            <input type="url" id="bgUrlInput" placeholder="https://ejemplo.com/mi-imagen.jpg" class="form-input">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">O Cargar Archivo Local</label>
-                            <input type="file" id="bgFileInput" accept="image/*" class="form-input" style="padding: 0.5rem;">
-                        </div>
-
-                        <div class="form-group">
-                            <div style="display: flex; justify-content: space-between;" class="form-label">
-                                <span>Opacidad Oscura (Overlay)</span>
-                                <span id="opacityValDisplay" style="color: var(--accent-cyan);">90%</span>
+                <!-- VISTA 1: INICIO DE SESIÓN FIREBASE AUTH -->
+                <div id="adminLoginView">
+                    <div style="max-width: 400px; margin: 1rem auto; background: var(--bg-input); padding: 2rem; border-radius: 16px; border: 1px solid var(--border-glow);">
+                        <h3 style="margin-bottom: 0.5rem; text-align: center;"><i class="fa-solid fa-lock" style="color: var(--accent-cyan);"></i> Acceso Administrador</h3>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; margin-bottom: 1.5rem;">Inicia sesión con tu cuenta de administrador de Firebase</p>
+                        
+                        <form id="adminLoginForm">
+                            <div class="form-group">
+                                <label class="form-label">Correo Electrónico</label>
+                                <input type="email" id="adminEmailInput" class="form-input" required placeholder="admin@caracasvibes2.com">
                             </div>
-                            <input type="range" id="opacitySlider" min="10" max="95" value="90" style="width: 100%; accent-color: var(--accent-cyan);">
+                            <div class="form-group">
+                                <label class="form-label">Contraseña</label>
+                                <input type="password" id="adminPasswordInput" class="form-input" required placeholder="••••••••">
+                            </div>
+                            <div id="adminLoginError" style="color: #ff4d4f; font-size: 0.85rem; margin-bottom: 1rem; display: none;"></div>
+                            <button type="submit" class="btn btn-purple" style="width: 100%; justify-content: center;">Iniciar Sesión</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- VISTA 2: PANEL DE CONTROL ADMIN (Visible tras autenticación) -->
+                <div id="adminDashboardView" class="hidden">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; background: var(--bg-input); padding: 0.75rem 1rem; border-radius: 12px; border: 1px solid var(--border-glow);">
+                        <div>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Sesión iniciada como:</span>
+                            <span id="loggedAdminEmail" style="font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700;"></span>
+                        </div>
+                        <button type="button" class="btn btn-outline" style="padding: 0.35rem 0.8rem; font-size: 0.75rem; color: #ff4d4f; border-color: #ff4d4f;" id="adminLogoutBtn">
+                            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+                        </button>
+                    </div>
+
+                    <!-- Tabs Admin -->
+                    <div class="admin-tabs">
+                        <button id="tabSubmissionsBtn" class="admin-tab-btn active"><i class="fa-solid fa-inbox"></i> Postulaciones</button>
+                        <button id="tabQuestionsBtn" class="admin-tab-btn"><i class="fa-solid fa-pen-to-square"></i> Gestor de Preguntas</button>
+                        <button id="tabBgBtn" class="admin-tab-btn"><i class="fa-solid fa-image"></i> Personalizar Fondo</button>
+                    </div>
+
+                    <!-- PESTAÑA 1: SUBMISSIONS -->
+                    <div id="tabSubmissionsContent">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button data-filter="all" class="admin-filter-btn btn btn-purple" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Todos</button>
+                                <button data-filter="pending" class="admin-filter-btn btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Pendientes</button>
+                                <button data-filter="approved" class="admin-filter-btn btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Aprobados</button>
+                                <button data-filter="rejected" class="admin-filter-btn btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Rechazados</button>
+                                
+                                <!-- Filtros por Modalidad -->
+                                <span style="color: var(--border-glow);">|</span>
+                                <button data-wlfilter="all" class="admin-wlfilter-btn btn btn-purple" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Todas Mod.</button>
+                                <button data-wlfilter="general" class="admin-wlfilter-btn btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">General</button>
+                                <button data-wlfilter="delictivo" class="admin-wlfilter-btn btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Delictivo</button>
+                                <button data-wlfilter="legal" class="admin-wlfilter-btn btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Legal</button>
+                            </div>
+                            <span id="submissionCount" style="font-size: 0.8rem; color: var(--text-muted); font-family: monospace;">0 postulaciones</span>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Vista Previa</label>
-                            <div style="width: 100%; height: 160px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow); position: relative;">
-                                <div id="bgPreviewImg" style="width: 100%; height: 100%; background-size: cover; background-position: center;"></div>
-                                <div id="bgPreviewOverlay" style="position: absolute; inset: 0; background: rgba(1,4,10,0.90); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--text-muted);">
-                                    Vista Previa
+                        <div id="submissionsList" style="display: flex; flex-direction: column; gap: 1rem;"></div>
+                    </div>
+
+                    <!-- PESTAÑA 2: GESTOR PREGUNTAS -->
+                    <div id="tabQuestionsContent" class="hidden">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                            <h3 style="font-size: 1.1rem; font-weight: 700;">Preguntas Activas</h3>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button id="resetDefaultQuestionsBtn" type="button" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem;">
+                                    <i class="fa-solid fa-rotate-left"></i> Restaurar Predeterminadas
+                                </button>
+                                <button id="addQuestionBtn" type="button" class="btn btn-purple" style="padding: 0.5rem 1rem; font-size: 0.8rem;">
+                                    <i class="fa-solid fa-plus"></i> Nueva Pregunta
+                                </button>
+                            </div>
+                        </div>
+                        <div id="questionsEditorList" style="display: flex; flex-direction: column; gap: 0.8rem;"></div>
+                    </div>
+
+                    <!-- PESTAÑA 3: PERSONALIZAR FONDO -->
+                    <div id="tabBgContent" class="hidden">
+                        <form id="bgConfigForm">
+                            <div class="form-group">
+                                <label class="form-label">URL de Imagen de Fondo</label>
+                                <input type="url" id="bgUrlInput" placeholder="https://ejemplo.com/mi-imagen.jpg" class="form-input">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">O Cargar Archivo Local</label>
+                                <input type="file" id="bgFileInput" accept="image/*" class="form-input" style="padding: 0.5rem;">
+                            </div>
+
+                            <div class="form-group">
+                                <div style="display: flex; justify-content: space-between;" class="form-label">
+                                    <span>Opacidad Oscura (Overlay)</span>
+                                    <span id="opacityValDisplay" style="color: var(--accent-cyan);">90%</span>
+                                </div>
+                                <input type="range" id="opacitySlider" min="10" max="95" value="90" style="width: 100%; accent-color: var(--accent-cyan);">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Vista Previa</label>
+                                <div style="width: 100%; height: 160px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow); position: relative;">
+                                    <div id="bgPreviewImg" style="width: 100%; height: 100%; background-size: cover; background-position: center;"></div>
+                                    <div id="bgPreviewOverlay" style="position: absolute; inset: 0; background: rgba(1,4,10,0.90); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--text-muted);">
+                                        Vista Previa
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1rem;">
-                            <button id="resetBgBtn" type="button" class="btn btn-outline">Restaurar</button>
-                            <button type="submit" class="btn btn-purple"><i class="fa-solid fa-floppy-disk"></i> Guardar Fondo</button>
-                        </div>
-                    </form>
+                            <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1rem;">
+                                <button id="resetBgBtn" type="button" class="btn btn-outline">Restaurar</button>
+                                <button type="submit" class="btn btn-purple"><i class="fa-solid fa-floppy-disk"></i> Guardar Fondo</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
             </div>
@@ -871,7 +905,7 @@
 
     <!-- FIREBASE SDK & APP LOGIC -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { 
             getFirestore, 
             collection, 
@@ -884,8 +918,15 @@
             updateDoc, 
             deleteDoc, 
             serverTimestamp 
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { 
+            getAuth, 
+            signInWithEmailAndPassword, 
+            signOut, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
+        // CONFIGURA TUS DATOS DE FIREBASE AQUÍ:
         const firebaseConfig = {
             apiKey: "AIzaSyC4MsYStfYJCfScNY3UuDz9zfnb_JN5Q6I",
             authDomain: "carasvibes-whitelist.firebaseapp.com",
@@ -895,18 +936,18 @@
             appId: "1:208939321301:web:070354ae84a07bbd271f5c"
         };
 
-        const ADMIN_PASSWORD = "CaracasVibes2026";
         const DEFAULT_BG = "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1920&q=80";
         const LOCAL_STORAGE_QUESTIONS_KEY = "caracas_vibes_questions_v1";
         const LOCAL_STORAGE_SUBMISSIONS_KEY = "caracas_vibes_submissions_v1";
 
-        let app, db;
+        let app, db, auth;
         let firebaseReady = false;
 
         try {
-            if (firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("YOUR_API_KEY")) {
+            if (firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("TU_API_KEY")) {
                 app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
+                auth = getAuth(app);
                 firebaseReady = true;
             }
         } catch (e) {
@@ -1010,6 +1051,13 @@
         const searchStatusForm = document.getElementById('searchStatusForm');
         const statusResultContainer = document.getElementById('statusResultContainer');
 
+        const adminLoginView = document.getElementById('adminLoginView');
+        const adminDashboardView = document.getElementById('adminDashboardView');
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        const adminLoginError = document.getElementById('adminLoginError');
+        const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+        const loggedAdminEmail = document.getElementById('loggedAdminEmail');
+
         function loadSavedQuestions() {
             try {
                 const stored = localStorage.getItem(LOCAL_STORAGE_QUESTIONS_KEY);
@@ -1062,7 +1110,26 @@
             listenSettingsRealtime();
             listenQuestionsRealtime();
             setupEvents();
+            setupAuthListener();
         });
+
+        function setupAuthListener() {
+            if (firebaseReady && auth) {
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        adminLoginView.classList.add('hidden');
+                        adminDashboardView.classList.remove('hidden');
+                        loggedAdminEmail.textContent = user.email;
+                        loadSubmissionsRealtime();
+                        renderQuestionsEditor();
+                    } else {
+                        adminLoginView.classList.remove('hidden');
+                        adminDashboardView.classList.add('hidden');
+                        loggedAdminEmail.textContent = '';
+                    }
+                });
+            }
+        }
 
         function listenSettingsRealtime() {
             if (firebaseReady && db) {
@@ -1105,6 +1172,34 @@
         }
 
         function setupEvents() {
+            adminLoginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('adminEmailInput').value.trim();
+                const password = document.getElementById('adminPasswordInput').value;
+                adminLoginError.style.display = 'none';
+
+                if (firebaseReady && auth) {
+                    try {
+                        await signInWithEmailAndPassword(auth, email, password);
+                        adminLoginForm.reset();
+                        showToast("Sesión iniciada correctamente", "success");
+                    } catch (err) {
+                        adminLoginError.textContent = "Credenciales incorrectas. Verifica tu correo y contraseña.";
+                        adminLoginError.style.display = 'block';
+                    }
+                } else {
+                    adminLoginError.textContent = "Firebase Auth no está configurado.";
+                    adminLoginError.style.display = 'block';
+                }
+            });
+
+            adminLogoutBtn.addEventListener('click', async () => {
+                if (firebaseReady && auth) {
+                    await signOut(auth);
+                    showToast("Sesión cerrada", "info");
+                }
+            });
+
             openStatusModalBtn.addEventListener('click', () => {
                 statusResultContainer.classList.add('hidden');
                 statusResultContainer.innerHTML = '';
@@ -1531,19 +1626,10 @@
         }
 
         function openAdminPanel() {
-            const pwd = prompt("Introduce la contraseña de Administrador:");
-            if (pwd !== ADMIN_PASSWORD) {
-                showToast("Contraseña incorrecta", "error");
-                return;
-            }
-
             sectionUserInfo.classList.add('hidden');
             sectionQuestionnaire.classList.add('hidden');
             sectionSummary.classList.add('hidden');
             sectionAdmin.classList.remove('hidden');
-
-            loadSubmissionsRealtime();
-            renderQuestionsEditor();
         }
 
         function loadSubmissionsRealtime() {
