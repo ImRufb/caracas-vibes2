@@ -370,7 +370,7 @@
             margin: 0 auto 2rem;
         }
 
-        /* Apply Cards Grid */
+        /* Apply / Announcements Cards Grid */
         .apply-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -412,6 +412,35 @@
             margin-bottom: 1.5rem;
         }
 
+        /* Form Controls for Admin Modal */
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--bg-input);
+            border: 1px solid var(--border-glow);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--border-focus);
+        }
+
         /* Modals */
         .modal {
             display: none;
@@ -432,8 +461,10 @@
             border: 1px solid var(--border-glow);
             border-radius: 24px;
             padding: 3rem 2.5rem;
-            max-width: 500px;
+            max-width: 600px;
             width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
             text-align: left;
             position: relative;
             box-shadow: 0 0 40px rgba(0, 136, 255, 0.3);
@@ -485,6 +516,18 @@
             margin-top: 4px;
         }
 
+        /* Admin Announcement List inside Modal */
+        .admin-ann-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-glow);
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+        }
+
         /* Footer */
         footer {
             border-top: 1px solid var(--border-glow);
@@ -514,12 +557,14 @@
             <ul class="nav-links">
                 <li><a href="#como-entrar">¿Cómo entrar?</a></li>
                 <li><a href="#sistemas">Sistemas</a></li>
+                <li><a href="#anuncios">Anuncios</a></li>
                 <li><a href="#academia">Academia</a></li>
-                <li><a href="#postulaciones">Postulaciones</a></li>
             </ul>
-            <button class="btn btn-purple" onclick="openAgeModal()">
-                <i class="fa-solid fa-clipboard-check"></i> Hacer Whitelist
-            </button>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <button class="btn btn-purple" onclick="openAgeModal()">
+                    <i class="fa-solid fa-clipboard-check"></i> Hacer Whitelist
+                </button>
+            </div>
         </div>
     </header>
 
@@ -620,6 +665,17 @@
         </div>
     </section>
 
+    <!-- Announcements Section -->
+    <section class="section" id="anuncios">
+        <div class="section-title">
+            <h2>Últimos Anuncios</h2>
+            <p>Mantente al día con las novedades, actualizaciones y eventos de Caracas Vibes2</p>
+        </div>
+        <div class="apply-grid" id="announcementsGrid">
+            <!-- Cargado dinámicamente desde Firestore -->
+        </div>
+    </section>
+
     <!-- Academia de Roleplay & Tutoriales Oficiales -->
     <section class="section" id="academia">
         <div class="academy-banner">
@@ -629,30 +685,6 @@
             <a href="guias.html" class="btn btn-purple">
                 <i class="fa-solid fa-circle-play"></i> Ir a la Academia de Guías
             </a>
-        </div>
-    </section>
-
-    <!-- Applications Section -->
-    <section class="section" id="postulaciones">
-        <div class="apply-grid">
-            <div class="apply-card">
-                <i class="fa-solid fa-users"></i>
-                <h3>¿Quieres montar una banda?</h3>
-                <p>Reclama territorio y compite por el control con tu propia organización legal o ilegal.</p>
-                <a href="https://discord.gg/dVgeRhC2kv" target="_blank" class="btn btn-outline">Postular Banda</a>
-            </div>
-            <div class="apply-card">
-                <i class="fa-solid fa-store"></i>
-                <h3>¿Quieres tu negocio?</h3>
-                <p>Solicita la apertura de locales comerciales y construye un imperio económico desde cero.</p>
-                <a href="https://discord.gg/dVgeRhC2kv" target="_blank" class="btn btn-outline">Postular Negocio</a>
-            </div>
-            <div class="apply-card">
-                <i class="fa-solid fa-video"></i>
-                <h3>Creadores de Contenido</h3>
-                <p>Aplica al programa de creadores de Twitch, YouTube o Kick para obtener prioridad e insumos.</p>
-                <a href="https://discord.gg/dVgeRhC2kv" target="_blank" class="btn btn-outline">Postular Streamer</a>
-            </div>
         </div>
     </section>
 
@@ -685,13 +717,206 @@
         </div>
     </div>
 
+    <!-- Modal Anuncios (Detalle) -->
+    <div class="modal" id="announceModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAnnounceModal()">&times;</span>
+            <h2 id="annTitle" style="margin-bottom: 0.5rem;">Información del Anuncio</h2>
+            <span id="annDate" style="display: block; font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 1rem;"></span>
+            <p id="annDesc" style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; white-space: pre-line;"></p>
+            <div style="margin-top: 1.8rem; display: flex; justify-content: space-between; align-items: center;">
+                <a id="annDiscordLink" href="https://discord.gg/dVgeRhC2kv" target="_blank" class="btn btn-outline"><i class="fa-brands fa-discord"></i> Ir a Discord</a>
+                <button class="btn btn-purple" onclick="closeAnnounceModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel de Administración (Modal para CRUD de Anuncios) -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAdminModal()">&times;</span>
+            <h2 style="margin-bottom: 0.5rem;">Panel Administrador - Anuncios</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Crea, edita o elimina los anuncios de la web</p>
+            
+            <form id="announcementForm" onsubmit="handleSaveAnnouncement(event)">
+                <input type="hidden" id="editAnnouncementId">
+                <div class="form-group">
+                    <label>Título del anuncio</label>
+                    <input type="text" id="formTitle" class="form-control" required placeholder="Ej: Actualización v2.1 Disponible">
+                </div>
+                <div class="form-group">
+                    <label>Fecha o Etiqueta (Ej: 10 Septiembre, 2026)</label>
+                    <input type="text" id="formDate" class="form-control" required placeholder="Ej: 10 Septiembre, 2026">
+                </div>
+                <div class="form-group">
+                    <label>Resumen corto (Tarjeta)</label>
+                    <input type="text" id="formSummary" class="form-control" required placeholder="Breve texto que se ve en la tarjeta">
+                </div>
+                <div class="form-group">
+                    <label>Descripción detallada (Ventana modal)</label>
+                    <textarea id="formDescription" class="form-control" rows="4" required placeholder="Detalla aquí toda la información del anuncio..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Icono FontAwesome (ej: fa-bullhorn, fa-scale-balanced, fa-trophy)</label>
+                    <input type="text" id="formIcon" class="form-control" value="fa-bullhorn" required>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button type="submit" class="btn btn-purple" id="saveAnnouncementBtn">Guardar Anuncio</button>
+                    <button type="button" class="btn btn-outline" onclick="resetAdminForm()">Limpiar / Nuevo</button>
+                </div>
+            </form>
+
+            <hr style="border: 0; border-top: 1px solid var(--border-glow); margin: 2rem 0;">
+
+            <h3>Anuncios Existentes</h3>
+            <div id="adminAnnouncementList" style="margin-top: 1rem; max-height: 250px; overflow-y: auto;">
+                <!-- Lista de anuncios para editar/borrar -->
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <p>Caracas Vibes2 no está afiliado ni respaldado por Rockstar Games, Take-Two Interactive o FiveM. Todos los derechos pertenecen a sus respectivos propietarios.</p>
+        <p style="margin-top: 0.5rem;"><button onclick="openAdminModal()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; text-decoration: underline; font-size: 0.8rem;"><i class="fa-solid fa-lock"></i> Panel Administrador</button></p>
     </footer>
 
-    <!-- JavaScript -->
+    <!-- Firebase SDK & App Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        // CONFIGURA TUS DATOS DE FIREBASE AQUÍ:
+        const firebaseConfig = {
+            apiKey: "AIzaSyDcfjaWyKkV1ly6dP9fbK8LhZb6EO8QUjU",
+            authDomain: "index-caracas.firebaseapp.com",
+            projectId: "index-caracas",
+            storageBucket: "index-caracas.firebasestorage.app",
+            messagingSenderId: "28520918995",
+            appId: "1:28520918995:web:f6bf0409794497c51a8926"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const announcementsCollection = collection(db, "announcements");
+
+        window.announcementsCache = {};
+
+        window.loadAnnouncements = async function() {
+            const grid = document.getElementById('announcementsGrid');
+            const adminList = document.getElementById('adminAnnouncementList');
+            grid.innerHTML = '<p style="color: var(--text-muted); text-align: center; grid-column: 1/-1;">Cargando anuncios...</p>';
+            adminList.innerHTML = '<p style="color: var(--text-muted);">Cargando...</p>';
+
+            try {
+                const snapshot = await getDocs(announcementsCollection);
+                grid.innerHTML = '';
+                adminList.innerHTML = '';
+                window.announcementsCache = {};
+
+                if (snapshot.empty) {
+                    grid.innerHTML = '<p style="color: var(--text-muted); text-align: center; grid-column: 1/-1;">No hay anuncios publicados todavía.</p>';
+                    adminList.innerHTML = '<p style="color: var(--text-muted);">Sin anuncios.</p>';
+                    return;
+                }
+
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const id = docSnap.id;
+                    window.announcementsCache[id] = data;
+
+                    // Renderizar tarjeta pública
+                    const card = document.createElement('div');
+                    card.className = 'apply-card';
+                    card.innerHTML = `
+                        <i class="fa-solid ${data.icon || 'fa-bullhorn'}" style="color: var(--accent-cyan);"></i>
+                        <span style="font-size: 0.8rem; color: var(--accent-cyan); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">${data.date}</span>
+                        <h3 style="margin-top: 0.4rem;">${data.title}</h3>
+                        <p>${data.summary}</p>
+                        <button class="btn btn-outline" onclick="openAnnounceModal('${id}')"><i class="fa-solid fa-circle-info"></i> Ver información</button>
+                    `;
+                    grid.appendChild(card);
+
+                    // Renderizar fila en panel administrador
+                    const item = document.createElement('div');
+                    item.className = 'admin-ann-item';
+                    item.innerHTML = `
+                        <div>
+                            <strong>${data.title}</strong>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">${data.date}</div>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" onclick="editAnnouncement('${id}')"><i class="fa-solid fa-pen"></i></button>
+                            <button class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; color: #ff4d4f; border-color: #ff4d4f;" onclick="deleteAnnouncement('${id}')"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    `;
+                    adminList.appendChild(item);
+                });
+            } catch (error) {
+                console.error("Error al cargar anuncios:", error);
+                grid.innerHTML = '<p style="color: #ff4d4f; text-align: center; grid-column: 1/-1;">Error al cargar anuncios. Verifica tu configuración de Firebase.</p>';
+            }
+        };
+
+        window.handleSaveAnnouncement = async function(e) {
+            e.preventDefault();
+            const id = document.getElementById('editAnnouncementId').value;
+            const title = document.getElementById('formTitle').value;
+            const date = document.getElementById('formDate').value;
+            const summary = document.getElementById('formSummary').value;
+            const description = document.getElementById('formDescription').value;
+            const icon = document.getElementById('formIcon').value;
+
+            try {
+                if (id) {
+                    await updateDoc(doc(db, "announcements", id), { title, date, summary, description, icon });
+                } else {
+                    await addDoc(announcementsCollection, { title, date, summary, description, icon });
+                }
+                resetAdminForm();
+                await loadAnnouncements();
+            } catch (err) {
+                console.error("Error al guardar anuncio:", err);
+                alert("Ocurrió un error al guardar el anuncio.");
+            }
+        };
+
+        window.editAnnouncement = function(id) {
+            const data = window.announcementsCache[id];
+            if (!data) return;
+            document.getElementById('editAnnouncementId').value = id;
+            document.getElementById('formTitle').value = data.title;
+            document.getElementById('formDate').value = data.date;
+            document.getElementById('formSummary').value = data.summary;
+            document.getElementById('formDescription').value = data.description;
+            document.getElementById('formIcon').value = data.icon || 'fa-bullhorn';
+            document.getElementById('saveAnnouncementBtn').textContent = 'Actualizar Anuncio';
+        };
+
+        window.deleteAnnouncement = async function(id) {
+            if (!confirm("¿Estás seguro de eliminar este anuncio?")) return;
+            try {
+                await deleteDoc(doc(db, "announcements", id));
+                await loadAnnouncements();
+            } catch (err) {
+                console.error("Error al eliminar anuncio:", err);
+            }
+        };
+
+        window.resetAdminForm = function() {
+            document.getElementById('announcementForm').reset();
+            document.getElementById('editAnnouncementId').value = '';
+            document.getElementById('saveAnnouncementBtn').textContent = 'Guardar Anuncio';
+        };
+
+        window.addEventListener('DOMContentLoaded', loadAnnouncements);
+    </script>
+
+    <!-- JavaScript General -->
     <script>
+        // Define aquí la clave de tu panel administrador:
+        const ADMIN_PASSWORD = "CaracasVibes2026";
+
         function switchTab(btnElement, tabId) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
@@ -717,7 +942,6 @@
             }
         }
 
-        // Datos de requisitos por categoría
         const requirementsData = {
             facciones: {
                 title: "Requisitos: Facciones y Gobierno",
@@ -781,12 +1005,45 @@
             document.getElementById('reqModal').style.display = 'none';
         }
 
-        // Cerrar modales haciendo clic fuera del contenido
+        function openAnnounceModal(id) {
+            const data = window.announcementsCache[id];
+            if (!data) return;
+
+            document.getElementById('annTitle').textContent = data.title;
+            document.getElementById('annDate').textContent = data.date;
+            document.getElementById('annDesc').textContent = data.description;
+
+            document.getElementById('announceModal').style.display = 'flex';
+        }
+
+        function closeAnnounceModal() {
+            document.getElementById('announceModal').style.display = 'none';
+        }
+
+        function openAdminModal() {
+            const passwordEntered = prompt("Introduce la contraseña de administrador:");
+            if (passwordEntered === null) return; // Si cancela
+
+            if (passwordEntered === ADMIN_PASSWORD) {
+                document.getElementById('adminModal').style.display = 'flex';
+            } else {
+                alert("Contraseña incorrecta. Acceso denegado.");
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
         window.onclick = function(event) {
             const ageModal = document.getElementById('ageModal');
             const reqModal = document.getElementById('reqModal');
+            const announceModal = document.getElementById('announceModal');
+            const adminModal = document.getElementById('adminModal');
             if (event.target === ageModal) closeAgeModal();
             if (event.target === reqModal) closeReqModal();
+            if (event.target === announceModal) closeAnnounceModal();
+            if (event.target === adminModal) closeAdminModal();
         }
     </script>
 </body>
