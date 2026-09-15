@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caracas Vibes2 | Guías y Tutoriales</title>
+    <title>Caracas Vibes2 | Academia y Sanciones</title>
     <!-- FontAwesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -13,12 +13,15 @@
             --bg-dark: #01040a;
             --bg-card: rgba(6, 14, 28, 0.86);
             --bg-card-hover: rgba(12, 26, 48, 0.92);
+            --bg-input: rgba(3, 8, 18, 0.95);
             --border-glow: rgba(0, 115, 230, 0.4);
             --border-focus: #00e5ff;
             --accent-purple: #0055cc;
             --accent-purple-glow: #0088ff;
             --accent-cyan: #00e5ff;
             --accent-pink: #ff2a85;
+            --accent-emerald: #00e676;
+            --accent-amber: #ffb300;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
         }
@@ -93,6 +96,7 @@
             display: flex;
             gap: 2rem;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
@@ -131,14 +135,46 @@
             box-shadow: 0 6px 25px rgba(0, 229, 255, 0.6);
         }
 
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            border: 1px solid var(--border-glow);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 229, 255, 0.15);
+            border-color: var(--accent-cyan);
+        }
+
+        .btn-danger {
+            background: rgba(255, 42, 133, 0.2);
+            color: var(--accent-pink);
+            border: 1px solid rgba(255, 42, 133, 0.4);
+        }
+
+        .btn-danger:hover {
+            background: rgba(255, 42, 133, 0.4);
+        }
+
+        .btn-success {
+            background: rgba(0, 230, 118, 0.2);
+            color: var(--accent-emerald);
+            border: 1px solid rgba(0, 230, 118, 0.4);
+        }
+
+        .btn-success:hover {
+            background: rgba(0, 230, 118, 0.4);
+        }
+
         /* Hero Section */
         .hero {
-            padding: 160px 2rem 80px;
+            padding: 180px 2rem 100px;
             text-align: center;
             position: relative;
             background: 
                 linear-gradient(180deg, rgba(1, 4, 10, 0.8) 0%, rgba(1, 4, 10, 0.96) 100%),
-                url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+                url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
         }
 
         .badge {
@@ -158,7 +194,7 @@
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             font-weight: 800;
             margin-bottom: 1.2rem;
             line-height: 1.15;
@@ -170,53 +206,45 @@
 
         .hero p {
             color: var(--text-muted);
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             max-width: 650px;
             margin: 0 auto 2.5rem;
         }
 
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+        }
+
         /* Section Global */
         .section {
-            padding: 60px 2rem 90px;
+            padding: 90px 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* Categories Filter Nav */
-        .categories-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
+        .section-title {
+            text-align: center;
+            margin-bottom: 3.5rem;
         }
 
-        .cat-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-glow);
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
             color: var(--text-muted);
-            padding: 0.75rem 1.6rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-size: 1.05rem;
         }
 
-        .cat-btn.active, .cat-btn:hover {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-glow));
-            color: #fff;
-            border-color: var(--border-focus);
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
-        }
-
-        /* Video Cards Grid */
+        /* Video Guides Grid */
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
 
@@ -227,168 +255,219 @@
             overflow: hidden;
             backdrop-filter: blur(12px);
             transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
         }
 
         .video-card:hover {
-            transform: translateY(-6px);
-            background: var(--bg-card-hover);
+            transform: translateY(-5px);
             border-color: var(--border-focus);
             box-shadow: 0 10px 30px rgba(0, 229, 255, 0.2);
         }
 
-        .thumbnail-container {
+        .video-container {
             position: relative;
             width: 100%;
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding-top: 56.25%;
+            background: #000;
         }
 
-        .thumbnail-container::before {
-            content: '';
+        .video-container video {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(1, 4, 10, 0.4);
-            transition: background 0.3s;
-        }
-
-        .video-card:hover .thumbnail-container::before {
-            background: rgba(1, 4, 10, 0.1);
-        }
-
-        .play-icon {
-            position: relative;
-            z-index: 2;
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-glow));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 1.2rem;
-            padding-left: 3px;
-            box-shadow: 0 0 20px rgba(0, 229, 255, 0.6);
-            transition: transform 0.3s;
-        }
-
-        .video-card:hover .play-icon {
-            transform: scale(1.15);
-        }
-
-        .video-badge {
-            position: absolute;
-            bottom: 12px;
-            right: 12px;
-            background: rgba(1, 4, 10, 0.85);
-            border: 1px solid var(--border-glow);
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--text-main);
-            z-index: 2;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .video-info {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .video-tag {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--accent-cyan);
-            letter-spacing: 0.5px;
-            margin-bottom: 0.5rem;
+            padding: 1.8rem;
         }
 
         .video-info h3 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
             font-weight: 700;
-            margin-bottom: 0.6rem;
-            line-height: 1.3;
         }
 
         .video-info p {
             color: var(--text-muted);
-            font-size: 0.875rem;
-            line-height: 1.5;
+            font-size: 0.95rem;
         }
 
-        /* Video Modal Player */
+        /* Rules Table Section */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .sanctions-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .sanctions-table th, .sanctions-table td {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sanctions-table th {
+            background: rgba(0, 85, 204, 0.2);
+            color: var(--accent-cyan);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .sanctions-table tr:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .badge-type {
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .type-comunitaria { background: rgba(0, 229, 255, 0.15); color: var(--accent-cyan); border: 1px solid rgba(0,229,255,0.3); }
+        .type-temporal { background: rgba(255, 179, 0, 0.15); color: var(--accent-amber); border: 1px solid rgba(255,179,0,0.3); }
+        .type-permaban { background: rgba(255, 42, 133, 0.15); color: var(--accent-pink); border: 1px solid rgba(255,42,133,0.3); }
+
+        /* Summary Cards */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .summary-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 1.8rem;
+            text-align: center;
+            backdrop-filter: blur(12px);
+        }
+
+        .summary-card i {
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .summary-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+            font-weight: 700;
+        }
+
+        .summary-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Forms & Inputs */
+        .form-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: var(--bg-input);
+            border: 1px solid var(--border-glow);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--border-focus);
+        }
+
+        /* Modal Admin Styles */
         .modal {
             display: none;
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(1, 4, 10, 0.88);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(12px);
             z-index: 2000;
             align-items: center;
             justify-content: center;
         }
 
-        .modal-video-container {
+        .modal-content {
             background: var(--bg-card);
             border: 1px solid var(--border-glow);
             border-radius: 24px;
-            max-width: 900px;
+            padding: 2.5rem;
+            max-width: 650px;
             width: 90%;
-            overflow: hidden;
+            text-align: left;
             position: relative;
             box-shadow: 0 0 40px rgba(0, 136, 255, 0.3);
+            max-height: 85vh;
+            overflow-y: auto;
         }
 
         .modal-close {
             position: absolute;
-            top: 1rem;
-            right: 1.2rem;
-            color: #fff;
+            top: 1.2rem;
+            right: 1.5rem;
+            color: var(--text-muted);
             cursor: pointer;
-            font-size: 1.8rem;
-            z-index: 10;
+            font-size: 1.5rem;
             transition: color 0.3s;
         }
 
         .modal-close:hover {
-            color: var(--accent-cyan);
+            color: #fff;
         }
 
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            background: #000;
+        #adminDashboard {
+            display: none;
+            margin-top: 1rem;
         }
 
-        .video-wrapper video {
-            width: 100%;
-            max-height: 70vh;
-            display: block;
-            outline: none;
+        .admin-section-box {
+            background: rgba(3, 8, 18, 0.95);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
         }
 
-        .video-details-header {
-            padding: 1.5rem 2rem;
-        }
-
-        .video-details-header h2 {
-            font-size: 1.4rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .video-details-header p {
-            color: var(--text-muted);
+        .admin-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             font-size: 0.9rem;
         }
 
@@ -403,7 +482,7 @@
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.3rem; }
+            .hero h1 { font-size: 2.5rem; }
             .nav-links { display: none; }
         }
     </style>
@@ -414,15 +493,16 @@
     <header>
         <div class="nav-container">
             <a href="#" class="logo">
-                <div class="logo-icon"><i class="fa-solid fa-circle-play"></i></div>
-                CARACAS <span>GUÍAS</span>
+                <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                ACADEMIA <span>CARACAS VIBES2</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#guias">Todas las Guías</a></li>
-                <li><a href="#guias">Categorías</a></li>
+                <li><a href="#videos">Guías en Video</a></li>
+                <li><a href="#reglas">Reglamento</a></li>
+                <li><a href="#" onclick="openAdminModal(event)" style="color: var(--accent-cyan);"><i class="fa-solid fa-lock"></i> Panel Admin</a></li>
             </ul>
-            <a href="https://imrufb.github.io/caracas-vibes2/whitelist.html" target="_blank" class="btn btn-purple">
-                <i class="fa-solid fa-gamepad"></i> Ir al Servidor
+            <a href="https://discord.gg/dVgeRhC2kv" target="_blank" class="btn btn-purple">
+                <i class="fa-brands fa-discord"></i> Discord
             </a>
         </div>
     </header>
@@ -430,150 +510,429 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="badge">
-            <i class="fa-solid fa-film"></i> Academia de Roleplay & Tutoriales Oficiales
+            <i class="fa-solid fa-shield-halved"></i> Sistema Oficial de Normativa & Guías
         </div>
-        <h1>Aprende a rolear en Caracas Vibes2</h1>
-        <p>Explora nuestras vídeo-guías conceptuales y mecánicas para dominar las normativas, comandos y sistemas dentro del juego.</p>
+        <h1>Aprende a Rolear con Excelencia</h1>
+        <p>Explora videotutoriales conceptuales desde archivos locales y consulta el tabulador oficial de sanciones actualizado dinámicamente.</p>
+        <div class="hero-btns">
+            <a href="#videos" class="btn btn-purple">Ver Guías</a>
+            <button class="btn btn-outline" onclick="openAdminModal(event)"><i class="fa-solid fa-lock"></i> Gestionar Contenido</button>
+        </div>
     </section>
 
-    <!-- Videos Section -->
-    <section class="section" id="guias">
-        
-        <!-- Categorías de Filtro -->
-        <div class="categories-nav">
-            <button class="cat-btn active" onclick="filterCategory('all', event)"><i class="fa-solid fa-border-all"></i> Todas</button>
-            <button class="cat-btn" onclick="filterCategory('basicos', event)"><i class="fa-solid fa-book"></i> Conceptos Básicos</button>
-            <button class="cat-btn" onclick="filterCategory('facciones', event)"><i class="fa-solid fa-shield-halved"></i> Facciones</button>
-            <button class="cat-btn" onclick="filterCategory('criminal', event)"><i class="fa-solid fa-mask"></i> Rol Criminal</button>
-            <button class="cat-btn" onclick="filterCategory('economia', event)"><i class="fa-solid fa-coins"></i> Economía y Trabajo</button>
+    <!-- Video Guides Section -->
+    <section class="section" id="videos">
+        <div class="section-title">
+            <h2>Guías en Video: Cómo Rolear</h2>
+            <p>Lecciones audiovisuales esenciales cargadas desde la carpeta local de videos</p>
         </div>
 
-        <!-- Videoteca / Grid con Rutas Locales -->
-        <div class="video-grid">
+        <div class="video-grid" id="videosContainer">
+            <!-- Renderizado dinámico desde Firebase -->
+            <p style="color: var(--text-muted); text-align: center; width: 100%;">Cargando videotutoriales...</p>
+        </div>
+    </section>
+
+    <!-- Rules & Sanctions Section -->
+    <section class="section" id="reglas">
+        <div class="section-title">
+            <h2>Reglamento y Sistema de Sanciones</h2>
+            <p>Categorización oficial de penalizaciones por infracción en Caracas Vibes 2</p>
+        </div>
+
+        <div class="summary-grid">
+            <div class="summary-card">
+                <i class="fa-solid fa-clock"></i>
+                <h4>Sanciones Temporales</h4>
+                <p>De 24 horas a 14 días por comportamientos graves o evasión.</p>
+            </div>
+            <div class="summary-card">
+                <i class="fa-solid fa-ban"></i>
+                <h4>Sanciones Permanentes</h4>
+                <p>Baneo definitivo de cuenta por uso de hacks, trampas o toxicidad.</p>
+            </div>
+            <div class="summary-card">
+                <i class="fa-solid fa-broom"></i>
+                <h4>Servicios Comunitarios</h4>
+                <p>Trabajos in-game (limpieza de calles) para infracciones menores.</p>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="sanctions-table">
+                <thead>
+                    <tr>
+                        <th>Categoría</th>
+                        <th>Infracción / Motivo</th>
+                        <th>Castigo / Duración</th>
+                        <th>Severidad</th>
+                        <th>Observaciones / Reincidencia</th>
+                    </tr>
+                </thead>
+                <tbody id="sanctionsTableBody">
+                    <!-- Renderizado dinámico desde Firebase -->
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: var(--text-muted);">Cargando sanciones...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Modal Admin Panel -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeAdminModal()">&times;</span>
+            <h2 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-lock" style="color: var(--accent-cyan);"></i> Panel de Administrador</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Inicia sesión con Firebase Auth para editar guías y sanciones:</p>
             
-            <!-- Video 1 -->
-            <div class="video-card" data-category="basicos" onclick="openVideoModal('Guía Básica: Conceptos Obligatorios de Roleplay', 'Aprende qué es Valorar Vida, PG, MG y DM con ejemplos inmersivos.', 'videos/robar.mp4')">
-                <div class="thumbnail-container" style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80');">
-                    <div class="play-icon"><i class="fa-solid fa-play"></i></div>
-                    <span class="video-badge">05:40</span>
+            <!-- Formulario de Login -->
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="adminEmail">Correo Electrónico:</label>
+                    <input type="email" id="adminEmail" class="form-control" placeholder="admin@caracasvibes.com" required>
                 </div>
-                <div class="video-info">
-                    <span class="video-tag">Conceptos Básicos</span>
-                    <h3>Normativas Principales y Conceptos de Rol</h3>
-                    <p>Explicación práctica sobre cómo actuar en situaciones de riesgo y evitar faltas administrativas.</p>
+                <div class="form-group">
+                    <label for="adminPassword">Contraseña:</label>
+                    <input type="password" id="adminPassword" class="form-control" placeholder="********" required>
                 </div>
-            </div>
+                <button type="submit" class="btn btn-purple" style="width: 100%; justify-content: center;">
+                    <i class="fa-solid fa-lock-open"></i> Iniciar Sesión
+                </button>
+            </form>
+            <p id="loginStatus" style="margin-top: 1rem; text-align: center; font-size: 0.9rem; color: var(--accent-pink);"></p>
 
-            <!-- Video 2 -->
-            <div class="video-card" data-category="facciones" onclick="openVideoModal('Guía de Facciones: Sistema Policial y EMS', 'Conoce cómo funcionan los despachos, entornos y menús tácticos de emergencia.', 'videos/facciones.mp4')">
-                <div class="thumbnail-container" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80');">
-                    <div class="play-icon"><i class="fa-solid fa-play"></i></div>
-                    <span class="video-badge">08:15</span>
+            <!-- Dashboard de Gestión de Contenido (Oculto hasta loguearse) -->
+            <div id="adminDashboard">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--accent-cyan); font-size: 1.1rem;"><i class="fa-solid fa-pen-to-square"></i> Gestor de Contenido</h3>
+                    <button id="logoutBtn" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Cerrar Sesión</button>
                 </div>
-                <div class="video-info">
-                    <span class="video-tag">Facciones</span>
-                    <h3>Cómo ingresar y operar en Servicios de Emergencia</h3>
-                    <p>Mecánicas de arresto, interacción médica, código 10 y uso de radios oficiales.</p>
-                </div>
-            </div>
 
-            <!-- Video 3 -->
-            <div class="video-card" data-category="criminal" onclick="openVideoModal('Guía Criminal: Territorios y Entornos Ilegales', 'Normativa detallada sobre robos a bancos, zonas rojas y guerras de bandas.', 'videos/criminal.mp4')">
-                <div class="thumbnail-container" style="background-image: url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80');">
-                    <div class="play-icon"><i class="fa-solid fa-play"></i></div>
-                    <span class="video-badge">12:30</span>
+                <!-- Pestaña / Selector de Edición -->
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    <button class="btn btn-outline" style="flex: 1; font-size: 0.85rem;" onclick="switchAdminTab('videosTab')">Gestionar Videos</button>
+                    <button class="btn btn-outline" style="flex: 1; font-size: 0.85rem;" onclick="switchAdminTab('sanctionsTab')">Gestionar Sanciones</button>
                 </div>
-                <div class="video-info">
-                    <span class="video-tag">Rol Criminal</span>
-                    <h3>Sistema de Bandas y Tráfico Legal e Ilegal</h3>
-                    <p>Requisitos de tiradores, negociaciones con PD y reglas para iniciar robos mayores.</p>
-                </div>
-            </div>
 
-            <!-- Video 4 -->
-            <div class="video-card" data-category="economia" onclick="openVideoModal('Guía Economía: Primeros Pasos y Trabajos Civiles', 'Genera tus primeros ingresos legales dentro de la ciudad sin infringir normas.', 'videos/economia.mp4')">
-                <div class="thumbnail-container" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80');">
-                    <div class="play-icon"><i class="fa-solid fa-play"></i></div>
-                    <span class="video-badge">06:20</span>
+                <!-- Sección: Videos -->
+                <div id="videosTab" class="admin-tab-content">
+                    <div class="admin-section-box">
+                        <h4 style="font-size: 0.95rem; margin-bottom: 0.8rem; color: var(--accent-cyan);">Añadir Video Local</h4>
+                        <form id="addVideoForm">
+                            <div class="form-group">
+                                <label>Título del Video:</label>
+                                <input type="text" id="vidTitle" class="form-control" placeholder="Ej. Conceptos Básicos" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Descripción:</label>
+                                <input type="text" id="vidDesc" class="form-control" placeholder="Breve descripción..." required>
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre del archivo de video en la carpeta 'videos' (ej. tutorial.mp4):</label>
+                                <input type="text" id="vidFilename" class="form-control" placeholder="videos/tutorial.mp4 o tutorial.mp4" required>
+                            </div>
+                            <button type="submit" class="btn btn-success" style="width: 100%; justify-content: center; font-size: 0.85rem;"><i class="fa-solid fa-plus"></i> Guardar Video</button>
+                        </form>
+                    </div>
+                    <div class="admin-section-box">
+                        <h4 style="font-size: 0.95rem; margin-bottom: 0.8rem;">Videos Existentes</h4>
+                        <div id="adminVideosList" style="max-height: 200px; overflow-y: auto;">
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">Cargando lista...</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="video-info">
-                    <span class="video-tag">Economía y Trabajo</span>
-                    <h3>Cómo Comprar tu Primer Vehículo y Propiedad</h3>
-                    <p>Uso de cajeros, cuentas bancarias compartidas y gestión de negocios legales.</p>
+
+                <!-- Sección: Sanciones -->
+                <div id="sanctionsTab" class="admin-tab-content" style="display: none;">
+                    <div class="admin-section-box">
+                        <h4 style="font-size: 0.95rem; margin-bottom: 0.8rem; color: var(--accent-cyan);">Añadir Nueva Sanción</h4>
+                        <form id="addSanctionForm">
+                            <div class="form-group">
+                                <label>Categoría (Comunitarias, Temporales, Permaban):</label>
+                                <input type="text" id="sancCat" class="form-control" placeholder="Comunitarias" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Infracción / Motivo:</label>
+                                <input type="text" id="sancReason" class="form-control" placeholder="Forzar Rol" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Descripción corta:</label>
+                                <input type="text" id="sancDetail" class="form-control" placeholder="Quitar libertad..." required>
+                            </div>
+                            <div class="form-group">
+                                <label>Castigo / Duración:</label>
+                                <input type="text" id="sancPunish" class="form-control" placeholder="1000 Comunitarias" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Severidad (Baja, Media, Crítica):</label>
+                                <input type="text" id="sancSev" class="form-control" placeholder="Baja" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Observaciones:</label>
+                                <input type="text" id="sancObs" class="form-control" placeholder="Limpieza de calles" required>
+                            </div>
+                            <button type="submit" class="btn btn-success" style="width: 100%; justify-content: center; font-size: 0.85rem;"><i class="fa-solid fa-plus"></i> Guardar Sanción</button>
+                        </form>
+                    </div>
+                    <div class="admin-section-box">
+                        <h4 style="font-size: 0.95rem; margin-bottom: 0.8rem;">Sanciones Existentes</h4>
+                        <div id="adminSanctionsList" style="max-height: 200px; overflow-y: auto;">
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">Cargando lista...</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Reproductor Modal con la etiqueta native <video> de HTML5 -->
-    <div class="modal" id="videoModal">
-        <div class="modal-video-container">
-            <span class="modal-close" onclick="closeVideoModal()">&times;</span>
-            <div class="video-wrapper">
-                <video id="modalVideoPlayer" controls autoplay>
-                    <source id="modalVideoSource" src="" type="video/mp4">
-                    Tu navegador no soporta la reproducción de video HTML5.
-                </video>
-            </div>
-            <div class="video-details-header">
-                <h2 id="modalVideoTitle">Título del Video</h2>
-                <p id="modalVideoDesc">Descripción corta de la guía mostrada.</p>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>Caracas Vibes2 no está afiliado ni respaldado por Rockstar Games, Take-Two Interactive o FiveM. Todos los derechos pertenecen a sus respectivos propietarios.</p>
+        <p>Caracas Vibes 2 - Portal de Guías y Sanciones con Firebase Admin. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- JavaScript -->
-    <script>
-        // Filtrado por categorías
-        function filterCategory(category, evt) {
-            const buttons = document.querySelectorAll('.cat-btn');
-            const cards = document.querySelectorAll('.video-card');
+    <!-- Firebase SDK Scripts (Modular v10 con Auth y Firestore) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-            buttons.forEach(btn => btn.classList.remove('active'));
-            if(evt) evt.currentTarget.classList.add('active');
+        // Configuración de Firebase (Sustituye con tus credenciales reales)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCHScj9PdJWIXSA6AtUv5jhwRXQc8TvSZw",
+            authDomain: "guias-caracas.firebaseapp.com",
+            projectId: "guias-caracas",
+            storageBucket: "guias-caracas.firebasestorage.app",
+            messagingSenderId: "878480558535",
+            appId: "1:878480558535:web:e0413ab79b6f49e89db1e2"
+        };
 
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'flex';
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Funciones globales de apertura y cierre de modal
+        window.openAdminModal = function(e) {
+            e.preventDefault();
+            document.getElementById('adminModal').style.display = 'flex';
+        }
+
+        window.closeAdminModal = function() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
+        // Pestañas del Panel Admin
+        window.switchAdminTab = function(tabId) {
+            document.querySelectorAll('.admin-tab-content').forEach(el => el.style.display = 'none');
+            document.getElementById(tabId).style.display = 'block';
+        }
+
+        // Autenticación Admin
+        const loginForm = document.getElementById('loginForm');
+        const loginStatus = document.getElementById('loginStatus');
+        const adminDashboard = document.getElementById('adminDashboard');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+
+            try {
+                loginStatus.style.color = "var(--accent-cyan)";
+                loginStatus.textContent = "Iniciando sesión...";
+                await signInWithEmailAndPassword(auth, email, password);
+                loginStatus.textContent = "";
+            } catch (error) {
+                console.error("Error de login:", error);
+                loginStatus.style.color = "var(--accent-pink)";
+                loginStatus.textContent = "Credenciales incorrectas o error de acceso.";
+            }
+        });
+
+        logoutBtn.addEventListener('click', async () => {
+            await signOut(auth);
+        });
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                loginForm.style.display = 'none';
+                loginStatus.textContent = '';
+                adminDashboard.style.display = 'block';
+                loadAdminData();
+            } else {
+                loginForm.style.display = 'block';
+                adminDashboard.style.display = 'none';
+            }
+        });
+
+        // ==========================================
+        // CARGAR Y RENDERIZAR DATOS EN LA PÁGINA PÚBLICA
+        // ==========================================
+        async function fetchPublicContent() {
+            // Cargar Videos Locales
+            const videosContainer = document.getElementById('videosContainer');
+            try {
+                const vidSnapshot = await getDocs(collection(db, "academia_videos"));
+                videosContainer.innerHTML = '';
+                if (vidSnapshot.empty) {
+                    videosContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center; width: 100%;">No hay videos registrados.</p>';
                 } else {
-                    card.style.display = 'none';
+                    vidSnapshot.forEach((docSnap) => {
+                        const data = docSnap.data();
+                        // Asegurar ruta correcta a la carpeta videos
+                        let videoSrc = data.filename;
+                        if (!videoSrc.startsWith('videos/') && !videoSrc.startsWith('http')) {
+                            videoSrc = 'videos/' + videoSrc;
+                        }
+
+                        const card = document.createElement('div');
+                        card.className = 'video-card';
+                        card.innerHTML = `
+                            <div class="video-container">
+                                <video controls preload="metadata">
+                                    <source src="${videoSrc}" type="video/mp4">
+                                    Tu navegador no soporta la reproducción de video.
+                                </video>
+                            </div>
+                            <div class="video-info">
+                                <h3>${data.titulo}</h3>
+                                <p>${data.descripcion}</p>
+                            </div>
+                        `;
+                        videosContainer.appendChild(card);
+                    });
                 }
+            } catch (e) {
+                videosContainer.innerHTML = '<p style="color: var(--accent-pink); text-align: center; width: 100%;">Error al cargar videos.</p>';
+            }
+
+            // Cargar Sanciones
+            const sanctionsBody = document.getElementById('sanctionsTableBody');
+            try {
+                const sancSnapshot = await getDocs(collection(db, "academia_sanciones"));
+                sanctionsBody.innerHTML = '';
+                if (sancSnapshot.empty) {
+                    sanctionsBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No hay sanciones registradas.</td></tr>';
+                } else {
+                    sancSnapshot.forEach((docSnap) => {
+                        const data = docSnap.data();
+                        let badgeClass = 'type-comunitaria';
+                        if(data.categoria.toLowerCase().includes('temporal')) badgeClass = 'type-temporal';
+                        if(data.categoria.toLowerCase().includes('perma')) badgeClass = 'type-permaban';
+
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td><span class="badge-type ${badgeClass}">${data.categoria}</span></td>
+                            <td><strong>${data.razon}</strong><br><small>${data.detalle}</small></td>
+                            <td>${data.castigo}</td>
+                            <td>${data.severidad}</td>
+                            <td>${data.observaciones}</td>
+                        `;
+                        sanctionsBody.appendChild(row);
+                    });
+                }
+            } catch (e) {
+                sanctionsBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--accent-pink);">Error al cargar sanciones.</td></tr>';
+            }
+        }
+
+        // ==========================================
+        // GESTIÓN DESDE EL PANEL DE ADMINISTRADOR
+        // ==========================================
+        async function loadAdminData() {
+            // Cargar lista de videos admin
+            const adminVidList = document.getElementById('adminVideosList');
+            const vidSnapshot = await getDocs(collection(db, "academia_videos"));
+            adminVidList.innerHTML = '';
+            vidSnapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                const row = document.createElement('div');
+                row.className = 'admin-item-row';
+                row.innerHTML = `
+                    <span><strong>${data.titulo}</strong> (${data.filename})</span>
+                    <button class="btn btn-danger" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="deleteItem('academia_videos', '${docSnap.id}')">Eliminar</button>
+                `;
+                adminVidList.appendChild(row);
+            });
+
+            // Cargar lista de sanciones admin
+            const adminSancList = document.getElementById('adminSanctionsList');
+            const sancSnapshot = await getDocs(collection(db, "academia_sanciones"));
+            adminSancList.innerHTML = '';
+            sancSnapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                const row = document.createElement('div');
+                row.className = 'admin-item-row';
+                row.innerHTML = `
+                    <span><strong>${data.razon}</strong> (${data.categoria})</span>
+                    <button class="btn btn-danger" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="deleteItem('academia_sanciones', '${docSnap.id}')">Eliminar</button>
+                `;
+                adminSancList.appendChild(row);
             });
         }
 
-        // Abrir reproductor modal asignando la ruta del video local
-        function openVideoModal(title, desc, videoPath) {
-            document.getElementById('modalVideoTitle').textContent = title;
-            document.getElementById('modalVideoDesc').textContent = desc;
+        // Añadir Video Local
+        document.getElementById('addVideoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                await addDoc(collection(db, "academia_videos"), {
+                    titulo: document.getElementById('vidTitle').value,
+                    descripcion: document.getElementById('vidDesc').value,
+                    filename: document.getElementById('vidFilename').value
+                });
+                document.getElementById('addVideoForm').reset();
+                loadAdminData();
+                fetchPublicContent();
+                alert("Video local añadido correctamente.");
+            } catch (error) {
+                alert("Error al añadir video.");
+            }
+        });
 
-            const player = document.getElementById('modalVideoPlayer');
-            const source = document.getElementById('modalVideoSource');
+        // Añadir Sanción
+        document.getElementById('addSanctionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                await addDoc(collection(db, "academia_sanciones"), {
+                    categoria: document.getElementById('sancCat').value,
+                    razon: document.getElementById('sancReason').value,
+                    detalle: document.getElementById('sancDetail').value,
+                    castigo: document.getElementById('sancPunish').value,
+                    severidad: document.getElementById('sancSev').value,
+                    observaciones: document.getElementById('sancObs').value
+                });
+                document.getElementById('addSanctionForm').reset();
+                loadAdminData();
+                fetchPublicContent();
+                alert("Sanción añadida correctamente.");
+            } catch (error) {
+                alert("Error al añadir sanción.");
+            }
+        });
 
-            source.src = videoPath;
-            player.load(); // Carga la nueva fuente del video
-            player.play(); // Inicia reproducción automáticamente
-
-            document.getElementById('videoModal').style.display = 'flex';
+        // Eliminar Elemento genérico (Video o Sanción)
+        window.deleteItem = async function(collectionName, id) {
+            if (confirm("¿Estás seguro de eliminar este elemento?")) {
+                try {
+                    await deleteDoc(doc(db, collectionName, id));
+                    loadAdminData();
+                    fetchPublicContent();
+                } catch (error) {
+                    alert("No se pudo eliminar el registro.");
+                }
+            }
         }
 
-        // Cerrar reproductor modal y pausar el video
-        function closeVideoModal() {
-            const player = document.getElementById('modalVideoPlayer');
-            player.pause();
-            player.currentTime = 0;
-            document.getElementById('videoModal').style.display = 'none';
-        }
+        // Cargar contenido público al iniciar la página
+        window.addEventListener('DOMContentLoaded', fetchPublicContent);
 
-        // Cerrar modal al hacer clic fuera del contenedor
         window.onclick = function(event) {
-            const videoModal = document.getElementById('videoModal');
-            if (event.target === videoModal) closeVideoModal();
+            const modal = document.getElementById('adminModal');
+            if (event.target === modal) {
+                closeAdminModal();
+            }
         }
     </script>
 </body>
