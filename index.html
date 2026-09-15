@@ -672,7 +672,7 @@
             <p>Mantente al día con las novedades, actualizaciones y eventos de Caracas Vibes2</p>
         </div>
         <div class="apply-grid" id="announcementsGrid">
-            <!-- Cargado dinámicamente desde Firestore -->
+            <!-- Cargado en tiempo real desde Firestore -->
         </div>
     </section>
 
@@ -731,47 +731,76 @@
         </div>
     </div>
 
-    <!-- Panel de Administración (Modal para CRUD de Anuncios) -->
+    <!-- Panel de Administración (Firebase Authentication) -->
     <div class="modal" id="adminModal">
         <div class="modal-content">
             <span class="modal-close" onclick="closeAdminModal()">&times;</span>
-            <h2 style="margin-bottom: 0.5rem;">Panel Administrador - Anuncios</h2>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Crea, edita o elimina los anuncios de la web</p>
-            
-            <form id="announcementForm" onsubmit="handleSaveAnnouncement(event)">
-                <input type="hidden" id="editAnnouncementId">
-                <div class="form-group">
-                    <label>Título del anuncio</label>
-                    <input type="text" id="formTitle" class="form-control" required placeholder="Ej: Actualización v2.1 Disponible">
-                </div>
-                <div class="form-group">
-                    <label>Fecha o Etiqueta (Ej: 10 Septiembre, 2026)</label>
-                    <input type="text" id="formDate" class="form-control" required placeholder="Ej: 10 Septiembre, 2026">
-                </div>
-                <div class="form-group">
-                    <label>Resumen corto (Tarjeta)</label>
-                    <input type="text" id="formSummary" class="form-control" required placeholder="Breve texto que se ve en la tarjeta">
-                </div>
-                <div class="form-group">
-                    <label>Descripción detallada (Ventana modal)</label>
-                    <textarea id="formDescription" class="form-control" rows="4" required placeholder="Detalla aquí toda la información del anuncio..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Icono FontAwesome (ej: fa-bullhorn, fa-scale-balanced, fa-trophy)</label>
-                    <input type="text" id="formIcon" class="form-control" value="fa-bullhorn" required>
-                </div>
-                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <button type="submit" class="btn btn-purple" id="saveAnnouncementBtn">Guardar Anuncio</button>
-                    <button type="button" class="btn btn-outline" onclick="resetAdminForm()">Limpiar / Nuevo</button>
-                </div>
-            </form>
 
-            <hr style="border: 0; border-top: 1px solid var(--border-glow); margin: 2rem 0;">
-
-            <h3>Anuncios Existentes</h3>
-            <div id="adminAnnouncementList" style="margin-top: 1rem; max-height: 250px; overflow-y: auto;">
-                <!-- Lista de anuncios para editar/borrar -->
+            <!-- VISTA 1: INICIO DE SESIÓN -->
+            <div id="adminLoginSection">
+                <h2 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-lock" style="color: var(--accent-cyan);"></i> Acceso Administrador</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Inicia sesión con tu cuenta de administrador de Firebase</p>
+                <form id="loginForm" onsubmit="handleAdminLogin(event)">
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" id="adminEmail" class="form-control" required placeholder="admin@caracasvibes2.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        <input type="password" id="adminPassword" class="form-control" required placeholder="••••••••">
+                    </div>
+                    <div id="loginError" style="color: #ff4d4f; font-size: 0.85rem; margin-bottom: 1rem; display: none;"></div>
+                    <button type="submit" class="btn btn-purple" style="width: 100%; justify-content: center;">Iniciar Sesión</button>
+                </form>
             </div>
+
+            <!-- VISTA 2: PANEL DE CONTROL (Oculto hasta que inicie sesión) -->
+            <div id="adminDashboardSection" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div>
+                        <h2 style="margin-bottom: 0.2rem;">Panel Administrador</h2>
+                        <span id="loggedUserEmail" style="font-size: 0.8rem; color: var(--accent-cyan);"></span>
+                    </div>
+                    <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.8rem; color: #ff4d4f; border-color: #ff4d4f;" onclick="handleAdminLogout()">Cerrar Sesión</button>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Crea, edita o elimina los anuncios en tiempo real</p>
+                
+                <form id="announcementForm" onsubmit="handleSaveAnnouncement(event)">
+                    <input type="hidden" id="editAnnouncementId">
+                    <div class="form-group">
+                        <label>Título del anuncio</label>
+                        <input type="text" id="formTitle" class="form-control" required placeholder="Ej: Actualización v2.1 Disponible">
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha o Etiqueta (Ej: 10 Septiembre, 2026)</label>
+                        <input type="text" id="formDate" class="form-control" required placeholder="Ej: 10 Septiembre, 2026">
+                    </div>
+                    <div class="form-group">
+                        <label>Resumen corto (Tarjeta)</label>
+                        <input type="text" id="formSummary" class="form-control" required placeholder="Breve texto que se ve en la tarjeta">
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción detallada (Ventana modal)</label>
+                        <textarea id="formDescription" class="form-control" rows="4" required placeholder="Detalla aquí toda la información del anuncio..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Icono FontAwesome (ej: fa-bullhorn, fa-scale-balanced, fa-trophy)</label>
+                        <input type="text" id="formIcon" class="form-control" value="fa-bullhorn" required>
+                    </div>
+                    <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                        <button type="submit" class="btn btn-purple" id="saveAnnouncementBtn">Guardar Anuncio</button>
+                        <button type="button" class="btn btn-outline" onclick="resetAdminForm()">Limpiar / Nuevo</button>
+                    </div>
+                </form>
+
+                <hr style="border: 0; border-top: 1px solid var(--border-glow); margin: 2rem 0;">
+
+                <h3>Anuncios Existentes</h3>
+                <div id="adminAnnouncementList" style="margin-top: 1rem; max-height: 220px; overflow-y: auto;">
+                    <!-- Lista de anuncios para editar/borrar -->
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -784,7 +813,8 @@
     <!-- Firebase SDK & App Scripts -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
         // CONFIGURA TUS DATOS DE FIREBASE AQUÍ:
         const firebaseConfig = {
@@ -798,18 +828,18 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
         const announcementsCollection = collection(db, "announcements");
 
         window.announcementsCache = {};
 
-        window.loadAnnouncements = async function() {
+        // Escucha en tiempo real con onSnapshot
+        window.setupRealtimeAnnouncements = function() {
             const grid = document.getElementById('announcementsGrid');
             const adminList = document.getElementById('adminAnnouncementList');
             grid.innerHTML = '<p style="color: var(--text-muted); text-align: center; grid-column: 1/-1;">Cargando anuncios...</p>';
-            adminList.innerHTML = '<p style="color: var(--text-muted);">Cargando...</p>';
 
-            try {
-                const snapshot = await getDocs(announcementsCollection);
+            onSnapshot(announcementsCollection, (snapshot) => {
                 grid.innerHTML = '';
                 adminList.innerHTML = '';
                 window.announcementsCache = {};
@@ -825,7 +855,7 @@
                     const id = docSnap.id;
                     window.announcementsCache[id] = data;
 
-                    // Renderizar tarjeta pública
+                    // Tarjeta pública
                     const card = document.createElement('div');
                     card.className = 'apply-card';
                     card.innerHTML = `
@@ -837,7 +867,7 @@
                     `;
                     grid.appendChild(card);
 
-                    // Renderizar fila en panel administrador
+                    // Panel administrador fila
                     const item = document.createElement('div');
                     item.className = 'admin-ann-item';
                     item.innerHTML = `
@@ -852,11 +882,49 @@
                     `;
                     adminList.appendChild(item);
                 });
-            } catch (error) {
-                console.error("Error al cargar anuncios:", error);
-                grid.innerHTML = '<p style="color: #ff4d4f; text-align: center; grid-column: 1/-1;">Error al cargar anuncios. Verifica tu configuración de Firebase.</p>';
+            }, (error) => {
+                console.error("Error al escuchar anuncios:", error);
+                grid.innerHTML = '<p style="color: #ff4d4f; text-align: center; grid-column: 1/-1;">Error al cargar anuncios.</p>';
+            });
+        };
+
+        // Firebase Auth Login
+        window.handleAdminLogin = async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+            const errorEl = document.getElementById('loginError');
+            errorEl.style.display = 'none';
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                document.getElementById('loginForm').reset();
+            } catch (err) {
+                errorEl.textContent = "Credenciales incorrectas. Verifica tu correo y contraseña.";
+                errorEl.style.display = 'block';
             }
         };
+
+        window.handleAdminLogout = async function() {
+            await signOut(auth);
+        };
+
+        // Vigilar estado de autenticación
+        onAuthStateChanged(auth, (user) => {
+            const loginSection = document.getElementById('adminLoginSection');
+            const dashboardSection = document.getElementById('adminDashboardSection');
+            const loggedUserEmail = document.getElementById('loggedUserEmail');
+
+            if (user) {
+                loginSection.style.display = 'none';
+                dashboardSection.style.display = 'block';
+                loggedUserEmail.textContent = user.email;
+            } else {
+                loginSection.style.display = 'block';
+                dashboardSection.style.display = 'none';
+                loggedUserEmail.textContent = '';
+            }
+        });
 
         window.handleSaveAnnouncement = async function(e) {
             e.preventDefault();
@@ -874,10 +942,9 @@
                     await addDoc(announcementsCollection, { title, date, summary, description, icon });
                 }
                 resetAdminForm();
-                await loadAnnouncements();
             } catch (err) {
-                console.error("Error al guardar anuncio:", err);
-                alert("Ocurrió un error al guardar el anuncio.");
+                console.error("Error al guardar:", err);
+                alert("Error al guardar (asegúrate de haber iniciado sesión como administrador).");
             }
         };
 
@@ -897,9 +964,8 @@
             if (!confirm("¿Estás seguro de eliminar este anuncio?")) return;
             try {
                 await deleteDoc(doc(db, "announcements", id));
-                await loadAnnouncements();
             } catch (err) {
-                console.error("Error al eliminar anuncio:", err);
+                console.error("Error al eliminar:", err);
             }
         };
 
@@ -909,14 +975,11 @@
             document.getElementById('saveAnnouncementBtn').textContent = 'Guardar Anuncio';
         };
 
-        window.addEventListener('DOMContentLoaded', loadAnnouncements);
+        window.addEventListener('DOMContentLoaded', setupRealtimeAnnouncements);
     </script>
 
     <!-- JavaScript General -->
     <script>
-        // Define aquí la clave de tu panel administrador:
-        const ADMIN_PASSWORD = "CaracasVibes2026";
-
         function switchTab(btnElement, tabId) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
@@ -1021,14 +1084,7 @@
         }
 
         function openAdminModal() {
-            const passwordEntered = prompt("Introduce la contraseña de administrador:");
-            if (passwordEntered === null) return; // Si cancela
-
-            if (passwordEntered === ADMIN_PASSWORD) {
-                document.getElementById('adminModal').style.display = 'flex';
-            } else {
-                alert("Contraseña incorrecta. Acceso denegado.");
-            }
+            document.getElementById('adminModal').style.display = 'flex';
         }
 
         function closeAdminModal() {
