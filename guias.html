@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Caracas Vibes2 | Academia y Sanciones</title>
+    <title>Caracas Vibes2 | Normativa y Sanciones</title>
     <!-- FontAwesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -241,57 +241,154 @@
             font-size: 1.05rem;
         }
 
-        /* Video Guides Grid */
-        .video-grid {
+        /* GitBook Style Layout */
+        .gitbook-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: 280px 1fr;
+            gap: 2.5rem;
+            align-items: start;
         }
 
-        .video-card {
+        .gitbook-sidebar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 100px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .gitbook-category-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-amber);
+            margin-top: 1.2rem;
+            margin-bottom: 0.6rem;
+            font-weight: 800;
+        }
+
+        .gitbook-category-title:first-child {
+            margin-top: 0;
+        }
+
+        .gitbook-menu {
+            list-style: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .gitbook-menu li a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.5rem 0.8rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .gitbook-menu li a:hover, .gitbook-menu li a.active {
+            color: var(--text-main);
+            background: rgba(0, 229, 255, 0.1);
+        }
+
+        .gitbook-menu li a i {
+            color: var(--accent-cyan);
+            font-size: 0.8rem;
+        }
+
+        .gitbook-content {
             background: var(--bg-card);
             border: 1px solid var(--border-glow);
             border-radius: 20px;
-            overflow: hidden;
-            backdrop-filter: blur(12px);
-            transition: all 0.3s ease;
+            padding: 2.5rem;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .video-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--border-focus);
-            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.2);
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%;
-            background: #000;
-        }
-
-        .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .video-info {
-            padding: 1.8rem;
-        }
-
-        .video-info h3 {
-            font-size: 1.3rem;
+        .gitbook-article-category {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-amber);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             margin-bottom: 0.5rem;
+        }
+
+        .gitbook-article-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .gitbook-article-title i {
+            color: var(--accent-cyan);
+        }
+
+        .gitbook-intro {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .norm-item {
+            margin-bottom: 2rem;
+        }
+
+        .norm-item h3 {
+            font-size: 1.3rem;
+            color: var(--text-main);
+            margin-bottom: 0.8rem;
             font-weight: 700;
         }
 
-        .video-info p {
+        .norm-item p {
             color: var(--text-muted);
             font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .norm-item ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .norm-item ul li strong {
+            color: var(--text-main);
+        }
+
+        .norm-note {
+            background: rgba(3, 8, 18, 0.8);
+            border-left: 4px solid var(--accent-amber);
+            padding: 1rem 1.2rem;
+            border-radius: 0 10px 10px 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-top: 1rem;
+        }
+
+        .norm-note i {
+            color: var(--accent-amber);
+            margin-top: 3px;
         }
 
         /* Rules Table Section */
@@ -406,6 +503,10 @@
             border-color: var(--border-focus);
         }
 
+        select.form-control {
+            cursor: pointer;
+        }
+
         /* Modal Admin Styles */
         .modal {
             display: none;
@@ -484,6 +585,7 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .nav-links { display: none; }
+            .gitbook-container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -493,12 +595,12 @@
     <header>
         <div class="nav-container">
             <a href="#" class="logo">
-                <div class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                ACADEMIA <span>CARACAS VIBES2</span>
+                <div class="logo-icon"><i class="fa-solid fa-book-open"></i></div>
+                NORMATIVA <span>CARACAS VIBES2</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#videos">Guías en Video</a></li>
-                <li><a href="#reglas">Reglamento</a></li>
+                <li><a href="#normativa">Normativa General</a></li>
+                <li><a href="#reglas">Sanciones</a></li>
                 <li><a href="#" onclick="openAdminModal(event)" style="color: var(--accent-cyan);"><i class="fa-solid fa-lock"></i> Panel Admin</a></li>
             </ul>
             <a href="https://discord.gg/dVgeRhC2kv" target="_blank" class="btn btn-purple">
@@ -510,26 +612,39 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="badge">
-            <i class="fa-solid fa-shield-halved"></i> Sistema Oficial de Normativa & Guías
+            <i class="fa-solid fa-shield-halved"></i> Reglamento Oficial GitBook Style
         </div>
-        <h1>Aprende a Rolear con Excelencia</h1>
-        <p>Explora videotutoriales conceptuales desde archivos locales y consulta el tabulador oficial de sanciones actualizado dinámicamente.</p>
+        <h1>Conoce las Reglas del Servidor</h1>
+        <p>Mantén un juego limpio, equitativo y divertido consultando la normativa actualizada en tiempo real.</p>
         <div class="hero-btns">
-            <a href="#videos" class="btn btn-purple">Ver Guías</a>
+            <a href="#normativa" class="btn btn-purple">Ver Normativa</a>
             <button class="btn btn-outline" onclick="openAdminModal(event)"><i class="fa-solid fa-lock"></i> Gestionar Contenido</button>
         </div>
     </section>
 
-    <!-- Video Guides Section -->
-    <section class="section" id="videos">
+    <!-- GitBook Style Normative Section -->
+    <section class="section" id="normativa">
         <div class="section-title">
-            <h2>Guías en Video: Cómo Rolear</h2>
-            <p>Lecciones audiovisuales esenciales cargadas desde la carpeta local de videos</p>
+            <h2>Documentación Oficial</h2>
+            <p>Selecciona una sección en el panel lateral para consultar las reglas de rol</p>
         </div>
 
-        <div class="video-grid" id="videosContainer">
-            <!-- Renderizado dinámico desde Firebase -->
-            <p style="color: var(--text-muted); text-align: center; width: 100%;">Cargando videotutoriales...</p>
+        <div class="gitbook-container">
+            <!-- Sidebar estilo GitBook agrupado por Categorías Principales -->
+            <div class="gitbook-sidebar" id="gitbookSidebarContainer">
+                <!-- Renderizado dinámico agrupado -->
+                <div class="gitbook-category-title">Principal</div>
+                <ul class="gitbook-menu">
+                    <li><a href="#" class="active"><i class="fa-solid fa-spinner fa-spin"></i> Cargando...</a></li>
+                </ul>
+            </div>
+
+            <!-- Contenido principal estilo GitBook -->
+            <div class="gitbook-content" id="gitbookContentArea">
+                <div class="gitbook-article-category">Cargando...</div>
+                <h2 class="gitbook-article-title"><i class="fa-solid fa-spinner fa-spin"></i> Obteniendo documentos...</h2>
+                <p class="gitbook-intro">Por favor espere un momento mientras cargamos la normativa desde la base de datos.</p>
+            </div>
         </div>
     </section>
 
@@ -570,7 +685,6 @@
                     </tr>
                 </thead>
                 <tbody id="sanctionsTableBody">
-                    <!-- Renderizado dinámico desde Firebase -->
                     <tr>
                         <td colspan="5" style="text-align: center; color: var(--text-muted);">Cargando sanciones...</td>
                     </tr>
@@ -584,7 +698,7 @@
         <div class="modal-content">
             <span class="modal-close" onclick="closeAdminModal()">&times;</span>
             <h2 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-lock" style="color: var(--accent-cyan);"></i> Panel de Administrador</h2>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Inicia sesión con Firebase Auth para editar guías y sanciones:</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">Inicia sesión con Firebase Auth para editar normativas y sanciones:</p>
             
             <!-- Formulario de Login -->
             <form id="loginForm">
@@ -602,42 +716,60 @@
             </form>
             <p id="loginStatus" style="margin-top: 1rem; text-align: center; font-size: 0.9rem; color: var(--accent-pink);"></p>
 
-            <!-- Dashboard de Gestión de Contenido (Oculto hasta loguearse) -->
+            <!-- Dashboard de Gestión de Contenido -->
             <div id="adminDashboard">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
                     <h3 style="color: var(--accent-cyan); font-size: 1.1rem;"><i class="fa-solid fa-pen-to-square"></i> Gestor de Contenido</h3>
                     <button id="logoutBtn" class="btn btn-danger" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Cerrar Sesión</button>
                 </div>
 
-                <!-- Pestaña / Selector de Edición -->
+                <!-- Selector de Pestañas Admin -->
                 <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem;">
-                    <button class="btn btn-outline" style="flex: 1; font-size: 0.85rem;" onclick="switchAdminTab('videosTab')">Gestionar Videos</button>
+                    <button class="btn btn-outline" style="flex: 1; font-size: 0.85rem;" onclick="switchAdminTab('normasTab')">Gestionar Normativa</button>
                     <button class="btn btn-outline" style="flex: 1; font-size: 0.85rem;" onclick="switchAdminTab('sanctionsTab')">Gestionar Sanciones</button>
                 </div>
 
-                <!-- Sección: Videos -->
-                <div id="videosTab" class="admin-tab-content">
+                <!-- Sección: Normas GitBook -->
+                <div id="normasTab" class="admin-tab-content">
                     <div class="admin-section-box">
-                        <h4 style="font-size: 0.95rem; margin-bottom: 0.8rem; color: var(--accent-cyan);">Añadir Video Local</h4>
-                        <form id="addVideoForm">
+                        <h4 style="font-size: 0.95rem; margin-bottom: 0.8rem; color: var(--accent-cyan);">Añadir Artículo de Normativa</h4>
+                        <form id="addNormForm">
                             <div class="form-group">
-                                <label>Título del Video:</label>
-                                <input type="text" id="vidTitle" class="form-control" placeholder="Ej. Conceptos Básicos" required>
+                                <label>Categoría Principal:</label>
+                                <select id="normCatPrincipal" class="form-control" required>
+                                    <option value="Principal">Principal</option>
+                                    <option value="Ilegales">Ilegales</option>
+                                    <option value="Facciones Principales">Facciones Principales</option>
+                                    <option value="Negocios">Negocios</option>
+                                    <option value="Terminos y Condiciones">Términos y Condiciones</option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label>Descripción:</label>
-                                <input type="text" id="vidDesc" class="form-control" placeholder="Breve descripción..." required>
+                                <label>Nombre de la Subcategoría (ej. Normas Ilegales, Normativa de Policías):</label>
+                                <input type="text" id="normSubcat" class="form-control" placeholder="Normativa General" required>
                             </div>
                             <div class="form-group">
-                                <label>Nombre del archivo de video en la carpeta 'videos' (ej. tutorial.mp4):</label>
-                                <input type="text" id="vidFilename" class="form-control" placeholder="videos/tutorial.mp4 o tutorial.mp4" required>
+                                <label>Título del Artículo (ej. 1. PowerGaming (PG)):</label>
+                                <input type="text" id="normTitle" class="form-control" placeholder="1. PowerGaming (PG)" required>
                             </div>
-                            <button type="submit" class="btn btn-success" style="width: 100%; justify-content: center; font-size: 0.85rem;"><i class="fa-solid fa-plus"></i> Guardar Video</button>
+                            <div class="form-group">
+                                <label>Descripción general / Definición:</label>
+                                <textarea id="normDesc" class="form-control" rows="2" placeholder="Consideramos powergaming..." required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Puntos clave (separados por saltos de línea para listar con viñetas):</label>
+                                <textarea id="normBullets" class="form-control" rows="3" placeholder="- Si chocas con un vehículo...&#10;- Está prohibido el rol de objetos..." required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Nota importante (opcional):</label>
+                                <input type="text" id="normNote" class="form-control" placeholder="Nota: Si lo apuntan...">
+                            </div>
+                            <button type="submit" class="btn btn-success" style="width: 100%; justify-content: center; font-size: 0.85rem;"><i class="fa-solid fa-plus"></i> Guardar Normativa</button>
                         </form>
                     </div>
                     <div class="admin-section-box">
-                        <h4 style="font-size: 0.95rem; margin-bottom: 0.8rem;">Videos Existentes</h4>
-                        <div id="adminVideosList" style="max-height: 200px; overflow-y: auto;">
+                        <h4 style="font-size: 0.95rem; margin-bottom: 0.8rem;">Artículos Existentes</h4>
+                        <div id="adminNormsList" style="max-height: 200px; overflow-y: auto;">
                             <p style="color: var(--text-muted); font-size: 0.85rem;">Cargando lista...</p>
                         </div>
                     </div>
@@ -688,16 +820,15 @@
 
     <!-- Footer -->
     <footer>
-        <p>Caracas Vibes 2 - Portal de Guías y Sanciones con Firebase Admin. Todos los derechos reservados.</p>
+        <p>Caracas Vibes 2 - Portal GitBook Normativo con Firebase Admin. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Firebase SDK Scripts (Modular v10 con Auth y Firestore) -->
+    <!-- Firebase SDK Scripts -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // Configuración de Firebase (Sustituye con tus credenciales reales)
         const firebaseConfig = {
             apiKey: "AIzaSyCHScj9PdJWIXSA6AtUv5jhwRXQc8TvSZw",
             authDomain: "guias-caracas.firebaseapp.com",
@@ -707,12 +838,10 @@
             appId: "1:878480558535:web:e0413ab79b6f49e89db1e2"
         };
 
-        // Inicializar Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Funciones globales de apertura y cierre de modal
         window.openAdminModal = function(e) {
             e.preventDefault();
             document.getElementById('adminModal').style.display = 'flex';
@@ -722,13 +851,11 @@
             document.getElementById('adminModal').style.display = 'none';
         }
 
-        // Pestañas del Panel Admin
         window.switchAdminTab = function(tabId) {
             document.querySelectorAll('.admin-tab-content').forEach(el => el.style.display = 'none');
             document.getElementById(tabId).style.display = 'block';
         }
 
-        // Autenticación Admin
         const loginForm = document.getElementById('loginForm');
         const loginStatus = document.getElementById('loginStatus');
         const adminDashboard = document.getElementById('adminDashboard');
@@ -768,47 +895,75 @@
         });
 
         // ==========================================
-        // CARGAR Y RENDERIZAR DATOS EN LA PÁGINA PÚBLICA
+        // CARGAR Y RENDERIZAR CONTENIDO PÚBLICO
         // ==========================================
-        async function fetchPublicContent() {
-            // Cargar Videos Locales
-            const videosContainer = document.getElementById('videosContainer');
-            try {
-                const vidSnapshot = await getDocs(collection(db, "academia_videos"));
-                videosContainer.innerHTML = '';
-                if (vidSnapshot.empty) {
-                    videosContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center; width: 100%;">No hay videos registrados.</p>';
-                } else {
-                    vidSnapshot.forEach((docSnap) => {
-                        const data = docSnap.data();
-                        // Asegurar ruta correcta a la carpeta videos
-                        let videoSrc = data.filename;
-                        if (!videoSrc.startsWith('videos/') && !videoSrc.startsWith('http')) {
-                            videoSrc = 'videos/' + videoSrc;
-                        }
+        let globalNormasData = [];
 
-                        const card = document.createElement('div');
-                        card.className = 'video-card';
-                        card.innerHTML = `
-                            <div class="video-container">
-                                <video controls preload="metadata">
-                                    <source src="${videoSrc}" type="video/mp4">
-                                    Tu navegador no soporta la reproducción de video.
-                                </video>
-                            </div>
-                            <div class="video-info">
-                                <h3>${data.titulo}</h3>
-                                <p>${data.descripcion}</p>
-                            </div>
-                        `;
-                        videosContainer.appendChild(card);
+        async function fetchPublicContent() {
+            const sidebarContainer = document.getElementById('gitbookSidebarContainer');
+            const contentArea = document.getElementById('gitbookContentArea');
+            
+            try {
+                const normSnapshot = await getDocs(collection(db, "academia_normas"));
+                globalNormasData = [];
+                normSnapshot.forEach((docSnap) => {
+                    globalNormasData.push({ id: docSnap.id, ...docSnap.data() });
+                });
+
+                if (globalNormasData.length === 0) {
+                    sidebarContainer.innerHTML = '<div class="gitbook-category-title">Principal</div><ul class="gitbook-menu"><li><a href="#">Sin registros</a></li></ul>';
+                    contentArea.innerHTML = '<h3 style="color:var(--text-muted)">No hay normativas registradas en la base de datos.</h3>';
+                } else {
+                    // Agrupar por Categoría Principal fija
+                    const categoriesOrder = ["Principal", "Ilegales", "Facciones Principales", "Negocios", "Terminos y Condiciones"];
+                    const grouped = {};
+
+                    categoriesOrder.forEach(cat => { grouped[cat] = []; });
+                    globalNormasData.forEach(item => {
+                        const mainCat = item.categoriaPrincipal || "Principal";
+                        if (!grouped[mainCat]) grouped[mainCat] = [];
+                        grouped[mainCat].push(item);
                     });
+
+                    sidebarContainer.innerHTML = '';
+                    let firstItemToRender = null;
+                    let isFirst = true;
+
+                    categoriesOrder.forEach(mainCat => {
+                        const itemsInCat = grouped[mainCat];
+                        if (itemsInCat && itemsInCat.length > 0) {
+                            // Título de la Categoría Principal
+                            const titleDiv = document.createElement('div');
+                            titleDiv.className = 'gitbook-category-title';
+                            titleDiv.textContent = mainCat.toUpperCase();
+                            sidebarContainer.appendChild(titleDiv);
+
+                            // Lista de Subcategorías/Artículos
+                            const ul = document.createElement('ul');
+                            ul.className = 'gitbook-menu';
+
+                            itemsInCat.forEach(item => {
+                                if (isFirst) {
+                                    firstItemToRender = item;
+                                    isFirst = false;
+                                }
+                                const li = document.createElement('li');
+                                li.innerHTML = `<a href="#" data-id="${item.id}" class="${firstItemToRender.id === item.id ? 'active' : ''}" onclick="selectNormArticle('${item.id}', event)"><i class="fa-solid fa-book-bookmark"></i> ${item.subcategoria || item.titulo}</a>`;
+                                ul.appendChild(li);
+                            });
+                            sidebarContainer.appendChild(ul);
+                        }
+                    });
+
+                    if (firstItemToRender) {
+                        renderNormArticle(firstItemToRender);
+                    }
                 }
             } catch (e) {
-                videosContainer.innerHTML = '<p style="color: var(--accent-pink); text-align: center; width: 100%;">Error al cargar videos.</p>';
+                sidebarContainer.innerHTML = '<div class="gitbook-category-title">Error</div><ul class="gitbook-menu"><li><a href="#" style="color:var(--accent-pink)">Error al cargar</a></li></ul>';
             }
 
-            // Cargar Sanciones
+            // Cargar Sanciones (Intacto)
             const sanctionsBody = document.getElementById('sanctionsTableBody');
             try {
                 const sancSnapshot = await getDocs(collection(db, "academia_sanciones"));
@@ -838,26 +993,70 @@
             }
         }
 
+        window.selectNormArticle = function(id, e) {
+            e.preventDefault();
+            document.querySelectorAll('.gitbook-menu a').forEach(el => el.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+
+            const found = globalNormasData.find(el => el.id === id);
+            if (found) renderNormArticle(found);
+        }
+
+        function renderNormArticle(data) {
+            const contentArea = document.getElementById('gitbookContentArea');
+            
+            let bulletsHtml = '';
+            if (data.bullets) {
+                const lines = data.bullets.split('\n');
+                bulletsHtml = '<ul>';
+                lines.forEach(line => {
+                    let cleanLine = line.replace(/^[-*•]\s*/, '').trim();
+                    if (cleanLine) {
+                        bulletsHtml += `<li>${cleanLine}</li>`;
+                    }
+                });
+                bulletsHtml += '</ul>';
+            }
+
+            let noteHtml = '';
+            if (data.nota) {
+                noteHtml = `
+                    <div class="norm-note">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <div>${data.nota}</div>
+                    </div>
+                `;
+            }
+
+            contentArea.innerHTML = `
+                <div class="gitbook-article-category">${data.subcategoria || data.categoriaPrincipal || 'Principal'}</div>
+                <h2 class="gitbook-article-title"><i class="fa-solid fa-book-open"></i> ${data.titulo}</h2>
+                <div class="norm-item">
+                    <p>${data.descripcion}</p>
+                    ${bulletsHtml}
+                    ${noteHtml}
+                </div>
+            `;
+        }
+
         // ==========================================
         // GESTIÓN DESDE EL PANEL DE ADMINISTRADOR
         // ==========================================
         async function loadAdminData() {
-            // Cargar lista de videos admin
-            const adminVidList = document.getElementById('adminVideosList');
-            const vidSnapshot = await getDocs(collection(db, "academia_videos"));
-            adminVidList.innerHTML = '';
-            vidSnapshot.forEach((docSnap) => {
+            const adminNormsList = document.getElementById('adminNormsList');
+            const normSnapshot = await getDocs(collection(db, "academia_normas"));
+            adminNormsList.innerHTML = '';
+            normSnapshot.forEach((docSnap) => {
                 const data = docSnap.data();
                 const row = document.createElement('div');
                 row.className = 'admin-item-row';
                 row.innerHTML = `
-                    <span><strong>${data.titulo}</strong> (${data.filename})</span>
-                    <button class="btn btn-danger" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="deleteItem('academia_videos', '${docSnap.id}')">Eliminar</button>
+                    <span><strong>${data.titulo}</strong> <small>(${data.categoriaPrincipal} / ${data.subcategoria})</small></span>
+                    <button class="btn btn-danger" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="deleteItem('academia_normas', '${docSnap.id}')">Eliminar</button>
                 `;
-                adminVidList.appendChild(row);
+                adminNormsList.appendChild(row);
             });
 
-            // Cargar lista de sanciones admin
             const adminSancList = document.getElementById('adminSanctionsList');
             const sancSnapshot = await getDocs(collection(db, "academia_sanciones"));
             adminSancList.innerHTML = '';
@@ -873,21 +1072,24 @@
             });
         }
 
-        // Añadir Video Local
-        document.getElementById('addVideoForm').addEventListener('submit', async (e) => {
+        // Añadir Normativa GitBook
+        document.getElementById('addNormForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             try {
-                await addDoc(collection(db, "academia_videos"), {
-                    titulo: document.getElementById('vidTitle').value,
-                    descripcion: document.getElementById('vidDesc').value,
-                    filename: document.getElementById('vidFilename').value
+                await addDoc(collection(db, "academia_normas"), {
+                    categoriaPrincipal: document.getElementById('normCatPrincipal').value,
+                    subcategoria: document.getElementById('normSubcat').value,
+                    titulo: document.getElementById('normTitle').value,
+                    descripcion: document.getElementById('normDesc').value,
+                    bullets: document.getElementById('normBullets').value,
+                    nota: document.getElementById('normNote').value
                 });
-                document.getElementById('addVideoForm').reset();
+                document.getElementById('addNormForm').reset();
                 loadAdminData();
                 fetchPublicContent();
-                alert("Video local añadido correctamente.");
+                alert("Normativa añadida correctamente.");
             } catch (error) {
-                alert("Error al añadir video.");
+                alert("Error al añadir normativa.");
             }
         });
 
@@ -912,7 +1114,7 @@
             }
         });
 
-        // Eliminar Elemento genérico (Video o Sanción)
+        // Eliminar Elemento genérico
         window.deleteItem = async function(collectionName, id) {
             if (confirm("¿Estás seguro de eliminar este elemento?")) {
                 try {
@@ -925,7 +1127,6 @@
             }
         }
 
-        // Cargar contenido público al iniciar la página
         window.addEventListener('DOMContentLoaded', fetchPublicContent);
 
         window.onclick = function(event) {
