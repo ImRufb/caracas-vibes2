@@ -473,7 +473,6 @@
                     `;
                 }
                 
-                // Diseño adaptable: En móvil es una tarjeta apilada (block), en PC (`md:grid`) es fila de tabla de 12 cols
                 html += `
                     <div class="p-4 md:grid md:grid-cols-12 md:px-4 md:py-3 items-center hover:bg-blue-950/25 transition-colors border-b border-blue-900/20 last:border-0 space-y-2 md:space-y-0">
                         <div class="md:col-span-3 font-semibold text-white flex md:block items-center justify-between">
@@ -557,6 +556,18 @@
             }
         };
 
+        // Función de toggle para expandir/minimizar sublistas ●
+        window.toggleSublist = function(ruleId) {
+            const listEl = document.getElementById(`sublist-${ruleId}`);
+            const iconEl = document.getElementById(`sublist-icon-${ruleId}`);
+            if (listEl) {
+                listEl.classList.toggle('hidden');
+                if (iconEl) {
+                    iconEl.classList.toggle('rotate-90');
+                }
+            }
+        };
+
         function groupBySection() {
             const grouped = {};
             rulesData.forEach(rule => {
@@ -594,7 +605,19 @@
                 if (head.length > 0) {
                     html += `<p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-2 preserve-whitespace">${head}</p>`;
                 }
-                html += `<ul class="space-y-2 text-slate-300 text-xs sm:text-sm leading-relaxed">`;
+                
+                // Botón colapsador (por defecto oculto -> flecha orientada con -rotate-90)
+                html += `
+                    <div class="mb-2">
+                        <button type="button" onclick="window.toggleSublist('${ruleId}')" class="inline-flex items-center space-x-1.5 text-xs font-medium text-sky-400 hover:text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 px-2.5 py-1 rounded-lg border border-sky-500/20 transition-all select-none">
+                            <i id="sublist-icon-${ruleId}" class="fa-solid fa-chevron-down -rotate-90 transition-transform duration-200"></i>
+                            <span>Ver detalles (●)</span>
+                        </button>
+                    </div>
+                `;
+
+                // Agregado 'hidden' por defecto
+                html += `<ul id="sublist-${ruleId}" class="space-y-2 text-slate-300 text-xs sm:text-sm leading-relaxed hidden">`;
                 items.forEach((item, idx) => {
                     const cleanItem = item.trim();
                     if (cleanItem.length > 0) {
@@ -645,7 +668,6 @@
                 const section = grouped[secId];
                 if (!section) return;
 
-                // Ordenar normas de menor a mayor según el código numérico/alfanumérico (ej. 1.1, 1.2, 1.10)
                 section.items.sort((a, b) => {
                     return (a.code || '').localeCompare(b.code || '', undefined, { numeric: true, sensitivity: 'base' });
                 });
