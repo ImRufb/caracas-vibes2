@@ -218,7 +218,7 @@
 
             <!-- Footer -->
             <footer class="border-t border-blue-900/40 pt-6 pb-12 text-center text-xs text-slate-400 mt-16">
-                <p>&copy; 2026 Caracas Vibes2. Todos los derechos reservados. Sincronizado mediante Firebase Cloud.</p>
+                <p>&copy; 2026 Caracas Vibes2. Todos los derechos reservados.</p>
             </footer>
         </main>
     </div>
@@ -293,8 +293,8 @@
                     <input type="text" id="rule-item-title" required placeholder="Fear RP" class="w-full px-4 py-2 bg-darker border border-blue-900/60 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-sky-400">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1">Descripción</label>
-                    <textarea id="rule-description" rows="3" required class="w-full px-4 py-2 bg-darker border border-blue-900/60 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-sky-400"></textarea>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">Descripción (usa ● para subsecciones)</label>
+                    <textarea id="rule-description" rows="3" required placeholder="Punto 1 ● Punto 2 ● Punto 3" class="w-full px-4 py-2 bg-darker border border-blue-900/60 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-sky-400"></textarea>
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-300 mb-1">Nota importante (opcional)</label>
@@ -388,7 +388,7 @@
                 code: "1.1",
                 badge: "Estricta",
                 title: "Valor de la Vida (Fear RP)",
-                description: "Tu personaje debe valorar su vida por encima de todo material ante peligro inminente.",
+                description: "Tu personaje debe valorar su vida por encima de todo material ante peligro inminente. ● Mantener las manos arriba cuando apunten con arma letal. ● No responder fuego si estás en desventaja numérica directa en espacios cerrados.",
                 note: "El desconocimiento de esta normativa no te exime de su cumplimiento. Al ingresar al servidor, aceptas automáticamente leer, comprender y acatar estas reglas, así como las sanciones dictadas por la administración en caso de infracción."
             }
         ];
@@ -468,7 +468,7 @@
                     `;
                 }
                 html += `
-                    <div class="grid grid-cols-12 px-4 py-3 items-center hover:bg-blue-950/20 transition-colors">
+                    <div class="grid grid-cols-12 px-4 py-3 items-center hover:bg-blue-950/25 transition-colors">
                         <div class="col-span-3 font-semibold text-white">${item.category || ''}</div>
                         <div class="col-span-3 text-slate-300">${item.reason || ''}</div>
                         <div class="col-span-2 text-sky-300 font-mono">${item.duration || ''}</div>
@@ -548,8 +548,8 @@
                     const canMoveDown = index < orderedSectionIds.length - 1;
                     sectionMoveControls = `
                         <div class="flex items-center space-x-1.5 ml-auto">
-                            ${canMoveUp ? `<button onclick="window.moveSection('${secId}', -1)" title="Subir sección" class="px-2 py-1 bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 rounded-lg text-xs transition-colors"><i class="fa-solid fa-arrow-up"></i></button>` : ''}
-                            ${canMoveDown ? `<button onclick="window.moveSection('${secId}', 1)" title="Bajar sección" class="px-2 py-1 bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/30 rounded-lg text-xs transition-colors"><i class="fa-solid fa-arrow-down"></i></button>` : ''}
+                            ${canMoveUp ? `<button onclick="window.moveSection('${secId}', -1)" title="Subir sección" class="px-2 py-1 bg-sky-600/25 hover:bg-sky-600/40 text-sky-300 border border-sky-500/30 rounded-lg text-xs transition-colors"><i class="fa-solid fa-arrow-up"></i></button>` : ''}
+                            ${canMoveDown ? `<button onclick="window.moveSection('${secId}', 1)" title="Bajar sección" class="px-2 py-1 bg-sky-600/25 hover:bg-sky-600/40 text-sky-300 border border-sky-500/30 rounded-lg text-xs transition-colors"><i class="fa-solid fa-arrow-down"></i></button>` : ''}
                         </div>
                     `;
                 }
@@ -592,6 +592,26 @@
                         `;
                     }
 
+                    let descriptionHtml = '';
+                    if (item.description && item.description.includes('●')) {
+                        const parts = item.description
+                            .split('●')
+                            .map(p => p.trim())
+                            .filter(p => p.length > 0);
+                        
+                        descriptionHtml = `
+                            <ul class="space-y-2 text-slate-300 text-xs sm:text-sm leading-relaxed list-disc list-inside">
+                                ${parts.map(part => `<li><span class="text-slate-200">${part}</span></li>`).join('')}
+                            </ul>
+                        `;
+                    } else {
+                        descriptionHtml = `
+                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                                ${item.description || ''}
+                            </p>
+                        `;
+                    }
+
                     contentHtml += `
                         <div class="bg-darkcard/95 backdrop-blur-sm border border-blue-900/40 rounded-2xl p-5 hover:border-sky-400/40 transition-colors shadow-sm">
                             <div class="flex items-start justify-between mb-2">
@@ -601,9 +621,7 @@
                                 </h3>
                                 <span class="px-2 py-0.5 ${badgeColor} border rounded text-[11px] font-medium">${item.badge}</span>
                             </div>
-                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
-                                ${item.description}
-                            </p>
+                            ${descriptionHtml}
                             ${noteHtml}
                             ${adminActionsHtml}
                         </div>
