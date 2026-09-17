@@ -219,7 +219,7 @@
 
             <!-- Footer -->
             <footer class="border-t border-blue-900/40 pt-6 pb-12 text-center text-xs text-slate-400 mt-16">
-                <p>&copy; 2026 Caracas Vibes2. Todos los derechos reservados.</p>
+                <p>&copy; 2026 Caracas Vibes2. Todos los derechos reservados. Sincronizado mediante Firebase Cloud.</p>
             </footer>
         </main>
     </div>
@@ -281,7 +281,7 @@
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1">Código de Norma</label>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Código de Norma (ej. 1.1, 1.2)</label>
                         <input type="text" id="rule-code" required placeholder="1.1" class="w-full px-4 py-2 bg-darker border border-blue-900/60 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-sky-400">
                     </div>
                     <div>
@@ -503,6 +503,41 @@
             renderRulesAndNavigation();
         };
 
+        window.moveRuleSubitem = async function(ruleId, subIndex, direction) {
+            const rule = rulesData.find(r => r.id === ruleId);
+            if (!rule || !rule.description) return;
+
+            const safeText = rule.description;
+            if (!safeText.includes('●')) return;
+
+            const parts = safeText.split('●');
+            const head = parts[0];
+            const items = parts.slice(1);
+
+            const targetIdx = subIndex + direction;
+            if (targetIdx < 0 || targetIdx >= items.length) return;
+
+            const temp = items[subIndex];
+            items[subIndex] = items[targetIdx];
+            items[targetIdx] = temp;
+
+            const newDescription = [head, ...items].join('●');
+            
+            try {
+                if (!ruleId.startsWith('default-')) {
+                    await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'rules', ruleId), {
+                        description: newDescription,
+                        updatedAt: new Date().toISOString()
+                    });
+                } else {
+                    rule.description = newDescription;
+                    renderRulesAndNavigation();
+                }
+            } catch (err) {
+                alert("Error al mover subsección: " + err.message);
+            }
+        };
+
         function groupBySection() {
             const grouped = {};
             rulesData.forEach(rule => {
@@ -527,11 +562,10 @@
                 .replace(/'/g, "&#039;");
         }
 
-        function formatRuleText(rawText) {
+        function formatRuleText(rawText, ruleId) {
             if (!rawText) return '';
             const safeText = escapeHTML(rawText);
             
-            // Si contiene '●', dividimos por cada '●' donde la persona lo puso
             if (safeText.includes('●')) {
                 const parts = safeText.split('●');
                 const head = parts[0].trim();
@@ -541,17 +575,35 @@
                 if (head.length > 0) {
                     html += `<p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-2 preserve-whitespace">${head}</p>`;
                 }
-                html += `<ul class="space-y-1.5 text-slate-300 text-xs sm:text-sm leading-relaxed">`;
-                items.forEach(item => {
+                html += `<ul class="space-y-2 text-slate-300 text-xs sm:text-sm leading-relaxed">`;
+                items.forEach((item, idx) => {
                     const cleanItem = item.trim();
                     if (cleanItem.length > 0) {
-                        html += `<li class="flex items-start space-x-2"><span class="text-sky-400 select-none">●</span><span class="text-slate-200 preserve-whitespace flex-1">${cleanItem}</span></li>`;
+                        let subitemControls = '';
+                        if (currentUser) {
+                            const canMoveUp = idx > 0;
+                            const canMoveDown = idx < items.length - 1;
+                            subitemControls = `
+                                <div class="flex items-center space-x-1 ml-2 shrink-0">
+                                    ${canMoveUp ? `<button type="button" onclick="window.moveRuleSubitem('${ruleId}', ${idx}, -1)" title="Subir subsección" class="px-1.5 py-0.5 bg-sky-600/20 hover:bg-sky-600/40 text-sky-300 rounded text-[10px]"><i class="fa-solid fa-arrow-up"></i></button>` : ''}
+                                    ${canMoveDown ? `<button type="button" onclick="window.moveRuleSubitem('${ruleId}', ${idx}, 1)" title="Bajar subsección" class="px-1.5 py-0.5 bg-sky-600/20 hover:bg-sky-600/40 text-sky-300 rounded text-[10px]"><i class="fa-solid fa-arrow-down"></i></button>` : ''}
+                                </div>
+                            `;
+                        }
+                        html += `
+                            <li class="flex items-start justify-between bg-blue-950/20 px-2.5 py-1.5 rounded-lg border border-blue-900/30">
+                                <div class="flex items-start space-x-2 flex-1">
+                                    <span class="text-sky-400 select-none">●</span>
+                                    <span class="text-slate-200 preserve-whitespace flex-1">${cleanItem}</span>
+                                </div>
+                                ${subitemControls}
+                            </li>
+                        `;
                     }
                 });
                 html += `</ul>`;
                 return html;
             } else {
-                // Si no hay ●, respeta los enters y espacios exactamente
                 return `<p class="text-slate-300 text-xs sm:text-sm leading-relaxed preserve-whitespace">${safeText}</p>`;
             }
         }
@@ -573,6 +625,11 @@
             orderedSectionIds.forEach((secId, index) => {
                 const section = grouped[secId];
                 if (!section) return;
+
+                // Ordenar normas de menor a mayor según el código numérico/alfanumérico (ej. 1.1, 1.2, 1.10)
+                section.items.sort((a, b) => {
+                    return (a.code || '').localeCompare(b.code || '', undefined, { numeric: true, sensitivity: 'base' });
+                });
 
                 navHtml += `
                     <a href="#${secId}" class="nav-link flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-darkcard/70 transition-colors">
@@ -631,7 +688,7 @@
                         `;
                     }
 
-                    const descriptionHtml = formatRuleText(item.description);
+                    const descriptionHtml = formatRuleText(item.description, item.id);
 
                     contentHtml += `
                         <div class="bg-darkcard/95 backdrop-blur-sm border border-blue-900/40 rounded-2xl p-5 hover:border-sky-400/40 transition-colors shadow-sm">
