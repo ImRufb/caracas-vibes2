@@ -30,7 +30,7 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #050b14; }
         ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
@@ -194,17 +194,21 @@
                     </div>
                 </div>
 
-                <!-- Sanctions Table Container matching dark theme mockup -->
+                <!-- Sanctions Responsive Table/Card Container with Scroll -->
                 <div class="bg-darkcard/90 border border-blue-900/40 rounded-2xl overflow-hidden shadow-xl">
-                    <div class="grid grid-cols-12 bg-blue-950/60 border-b border-blue-900/40 px-4 py-3 text-[11px] font-bold text-sky-400 uppercase tracking-wider">
+                    <!-- Header solo visible en PC (md:grid) -->
+                    <div class="hidden md:grid grid-cols-12 bg-blue-950/60 border-b border-blue-900/40 px-4 py-3 text-[11px] font-bold text-sky-400 uppercase tracking-wider sticky top-0 z-10 backdrop-blur-md">
                         <div class="col-span-3">Categoría</div>
                         <div class="col-span-3">Infracción / Motivo</div>
                         <div class="col-span-2">Castigo / Duración</div>
                         <div class="col-span-2">Severidad</div>
                         <div class="col-span-2 text-right">Observaciones / Reincidencia</div>
                     </div>
-                    <div id="sanctions-table-body" class="divide-y divide-blue-900/20 text-xs text-slate-300">
-                        <div class="py-10 text-center text-slate-500 text-xs">No hay sanciones registradas.</div>
+                    <!-- Contenedor con scroll vertical -->
+                    <div class="max-h-96 overflow-y-auto">
+                        <div id="sanctions-table-body" class="divide-y divide-blue-900/20 text-xs text-slate-300">
+                            <div class="py-10 text-center text-slate-500 text-xs">No hay sanciones registradas.</div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -462,19 +466,34 @@
                 let adminButtons = '';
                 if (currentUser) {
                     adminButtons = `
-                        <div class="flex items-center justify-end space-x-1.5 mt-1">
-                            <button onclick="window.editSanction('${item.id}')" class="text-[10px] text-sky-400 hover:text-sky-300 underline">Editar</button>
-                            <button onclick="window.deleteSanction('${item.id}')" class="text-[10px] text-rose-400 hover:text-rose-300 underline">Eliminar</button>
+                        <div class="flex items-center justify-end space-x-1.5 mt-2 md:mt-1">
+                            <button onclick="window.editSanction('${item.id}')" class="text-xs text-sky-400 hover:text-sky-300 underline font-medium">Editar</button>
+                            <button onclick="window.deleteSanction('${item.id}')" class="text-xs text-rose-400 hover:text-rose-300 underline font-medium">Eliminar</button>
                         </div>
                     `;
                 }
+                
+                // Diseño adaptable: En móvil es una tarjeta apilada (block), en PC (`md:grid`) es fila de tabla de 12 cols
                 html += `
-                    <div class="grid grid-cols-12 px-4 py-3 items-center hover:bg-blue-950/25 transition-colors">
-                        <div class="col-span-3 font-semibold text-white">${item.category || ''}</div>
-                        <div class="col-span-3 text-slate-300 preserve-whitespace">${item.reason || ''}</div>
-                        <div class="col-span-2 text-sky-300 font-mono">${item.duration || ''}</div>
-                        <div class="col-span-2"><span class="px-2 py-0.5 rounded text-[10px] bg-sky-500/10 text-sky-300 border border-sky-500/20">${item.severity || ''}</span></div>
-                        <div class="col-span-2 text-right text-slate-400 text-[11px] preserve-whitespace">
+                    <div class="p-4 md:grid md:grid-cols-12 md:px-4 md:py-3 items-center hover:bg-blue-950/25 transition-colors border-b border-blue-900/20 last:border-0 space-y-2 md:space-y-0">
+                        <div class="md:col-span-3 font-semibold text-white flex md:block items-center justify-between">
+                            <span class="md:hidden text-[10px] text-sky-400 uppercase font-bold">Categoría:</span>
+                            <span class="text-sm md:text-xs">${item.category || ''}</span>
+                        </div>
+                        <div class="md:col-span-3 text-slate-300 preserve-whitespace text-xs">
+                            <span class="md:hidden block text-[10px] text-sky-400 uppercase font-bold">Infracción / Motivo:</span>
+                            ${item.reason || ''}
+                        </div>
+                        <div class="md:col-span-2 text-sky-300 font-mono text-xs flex md:block items-center justify-between">
+                            <span class="md:hidden text-[10px] text-sky-400 uppercase font-bold">Castigo / Duración:</span>
+                            <span>${item.duration || ''}</span>
+                        </div>
+                        <div class="md:col-span-2 flex md:block items-center justify-between">
+                            <span class="md:hidden text-[10px] text-sky-400 uppercase font-bold">Severidad:</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] bg-sky-500/10 text-sky-300 border border-sky-500/25">${item.severity || ''}</span>
+                        </div>
+                        <div class="md:col-span-2 md:text-right text-slate-400 text-[11px] preserve-whitespace border-t border-blue-900/10 md:border-0 pt-2 md:pt-0">
+                            <span class="md:hidden block text-[10px] text-sky-400 uppercase font-bold mb-0.5">Observaciones:</span>
                             ${item.notes || ''}
                             ${adminButtons}
                         </div>
