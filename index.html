@@ -723,6 +723,9 @@
             <span class="modal-close" onclick="closeAnnounceModal()">&times;</span>
             <h2 id="annTitle" style="margin-bottom: 0.5rem;">Información del Anuncio</h2>
             <span id="annDate" style="display: block; font-size: 0.85rem; color: var(--accent-cyan); font-weight: 700; margin-bottom: 1rem;"></span>
+            <div id="annImageContainer" style="display: none; margin-bottom: 1.2rem;">
+                <img id="annImage" src="" alt="Imagen del anuncio" style="width: 100%; max-height: 280px; object-fit: cover; border-radius: 12px; border: 1px solid var(--border-glow);">
+            </div>
             <p id="annDesc" style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; white-space: pre-line;"></p>
             <div style="margin-top: 1.8rem; display: flex; justify-content: space-between; align-items: center;">
                 <a id="annDiscordLink" href="https://discord.gg/dVgeRhC2kv" target="_blank" class="btn btn-outline"><i class="fa-brands fa-discord"></i> Ir a Discord</a>
@@ -754,7 +757,7 @@
                 </form>
             </div>
 
-            <!-- VISTA 2: PANEL DE CONTROL (Oculto hasta que inicie sesión) -->
+            <!-- VISTA 2: PANEL DE CONTROL -->
             <div id="adminDashboardSection" style="display: none;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                     <div>
@@ -787,6 +790,10 @@
                         <label>Icono FontAwesome (ej: fa-bullhorn, fa-scale-balanced, fa-trophy)</label>
                         <input type="text" id="formIcon" class="form-control" value="fa-bullhorn" required>
                     </div>
+                    <div class="form-group">
+                        <label>URL de imagen (opcional)</label>
+                        <input type="url" id="formImage" class="form-control" placeholder="https://ejemplo.com/imagen.png">
+                    </div>
                     <div style="display: flex; gap: 1rem; margin-top: 1rem;">
                         <button type="submit" class="btn btn-purple" id="saveAnnouncementBtn">Guardar Anuncio</button>
                         <button type="button" class="btn btn-outline" onclick="resetAdminForm()">Limpiar / Nuevo</button>
@@ -816,7 +823,6 @@
         import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-        // CONFIGURA TUS DATOS DE FIREBASE AQUÍ:
         const firebaseConfig = {
             apiKey: "AIzaSyDcfjaWyKkV1ly6dP9fbK8LhZb6EO8QUjU",
             authDomain: "index-caracas.firebaseapp.com",
@@ -833,7 +839,6 @@
 
         window.announcementsCache = {};
 
-        // Escucha en tiempo real con onSnapshot
         window.setupRealtimeAnnouncements = function() {
             const grid = document.getElementById('announcementsGrid');
             const adminList = document.getElementById('adminAnnouncementList');
@@ -909,7 +914,6 @@
             await signOut(auth);
         };
 
-        // Vigilar estado de autenticación
         onAuthStateChanged(auth, (user) => {
             const loginSection = document.getElementById('adminLoginSection');
             const dashboardSection = document.getElementById('adminDashboardSection');
@@ -934,12 +938,13 @@
             const summary = document.getElementById('formSummary').value;
             const description = document.getElementById('formDescription').value;
             const icon = document.getElementById('formIcon').value;
+            const image = document.getElementById('formImage').value;
 
             try {
                 if (id) {
-                    await updateDoc(doc(db, "announcements", id), { title, date, summary, description, icon });
+                    await updateDoc(doc(db, "announcements", id), { title, date, summary, description, icon, image });
                 } else {
-                    await addDoc(announcementsCollection, { title, date, summary, description, icon });
+                    await addDoc(announcementsCollection, { title, date, summary, description, icon, image });
                 }
                 resetAdminForm();
             } catch (err) {
@@ -957,6 +962,7 @@
             document.getElementById('formSummary').value = data.summary;
             document.getElementById('formDescription').value = data.description;
             document.getElementById('formIcon').value = data.icon || 'fa-bullhorn';
+            document.getElementById('formImage').value = data.image || '';
             document.getElementById('saveAnnouncementBtn').textContent = 'Actualizar Anuncio';
         };
 
@@ -972,6 +978,7 @@
         window.resetAdminForm = function() {
             document.getElementById('announcementForm').reset();
             document.getElementById('editAnnouncementId').value = '';
+            document.getElementById('formImage').value = '';
             document.getElementById('saveAnnouncementBtn').textContent = 'Guardar Anuncio';
         };
 
@@ -1068,13 +1075,23 @@
             document.getElementById('reqModal').style.display = 'none';
         }
 
-        function openAnnounceModal(id) {
+        window.openAnnounceModal = function(id) {
             const data = window.announcementsCache[id];
             if (!data) return;
 
             document.getElementById('annTitle').textContent = data.title;
             document.getElementById('annDate').textContent = data.date;
             document.getElementById('annDesc').textContent = data.description;
+
+            const imgContainer = document.getElementById('annImageContainer');
+            const imgEl = document.getElementById('annImage');
+            if (data.image && data.image.trim() !== '') {
+                imgEl.src = data.image;
+                imgContainer.style.display = 'block';
+            } else {
+                imgEl.src = '';
+                imgContainer.style.display = 'none';
+            }
 
             document.getElementById('announceModal').style.display = 'flex';
         }
