@@ -46,12 +46,12 @@
                 <button id="sidebar-toggle" class="md:hidden text-slate-400 hover:text-white p-2 focus:outline-none">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
-                <div class="flex items-center space-x-2">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/30">
+                <a href="https://imrufb.github.io/caracas-vibes2/" class="flex items-center space-x-2 group hover:opacity-95 transition-opacity">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/30 group-hover:scale-105 transition-transform">
                         <i class="fa-solid fa-shield-halved text-white text-lg"></i>
                     </div>
                     <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-sky-200 to-sky-400 bg-clip-text text-transparent">Caracas <span class="text-sky-400">Vibes2</span></span>
-                </div>
+                </a>
             </div>
 
             <!-- Top Search Bar -->
@@ -196,7 +196,6 @@
 
                 <!-- Sanctions Responsive Table/Card Container with Scroll -->
                 <div class="bg-darkcard/90 border border-blue-900/40 rounded-2xl overflow-hidden shadow-xl">
-                    <!-- Header solo visible en PC (md:grid) -->
                     <div class="hidden md:grid grid-cols-12 bg-blue-950/60 border-b border-blue-900/40 px-4 py-3 text-[11px] font-bold text-sky-400 uppercase tracking-wider sticky top-0 z-10 backdrop-blur-md">
                         <div class="col-span-3">Categoría</div>
                         <div class="col-span-3">Infracción / Motivo</div>
@@ -204,7 +203,6 @@
                         <div class="col-span-2">Severidad</div>
                         <div class="col-span-2 text-right">Observaciones / Reincidencia</div>
                     </div>
-                    <!-- Contenedor con scroll vertical -->
                     <div class="max-h-96 overflow-y-auto">
                         <div id="sanctions-table-body" class="divide-y divide-blue-900/20 text-xs text-slate-300">
                             <div class="py-10 text-center text-slate-500 text-xs">No hay sanciones registradas.</div>
@@ -474,7 +472,7 @@
                 }
                 
                 html += `
-                    <div class="p-4 md:grid md:grid-cols-12 md:px-4 md:py-3 items-center hover:bg-blue-950/25 transition-colors border-b border-blue-900/20 last:border-0 space-y-2 md:space-y-0">
+                    <div class="sanction-row p-4 md:grid md:grid-cols-12 md:px-4 md:py-3 items-center hover:bg-blue-950/25 transition-colors border-b border-blue-900/20 last:border-0 space-y-2 md:space-y-0">
                         <div class="md:col-span-3 font-semibold text-white flex md:block items-center justify-between">
                             <span class="md:hidden text-[10px] text-sky-400 uppercase font-bold">Categoría:</span>
                             <span class="text-sm md:text-xs">${item.category || ''}</span>
@@ -556,7 +554,6 @@
             }
         };
 
-        // Función de toggle para expandir/minimizar sublistas ●
         window.toggleSublist = function(ruleId) {
             const listEl = document.getElementById(`sublist-${ruleId}`);
             const iconEl = document.getElementById(`sublist-icon-${ruleId}`);
@@ -606,7 +603,6 @@
                     html += `<p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-2 preserve-whitespace">${head}</p>`;
                 }
                 
-                // Botón colapsador (por defecto oculto -> flecha orientada con -rotate-90)
                 html += `
                     <div class="mb-2">
                         <button type="button" onclick="window.toggleSublist('${ruleId}')" class="inline-flex items-center space-x-1.5 text-xs font-medium text-sky-400 hover:text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 px-2.5 py-1 rounded-lg border border-sky-500/20 transition-all select-none">
@@ -616,7 +612,6 @@
                     </div>
                 `;
 
-                // Agregado 'hidden' por defecto
                 html += `<ul id="sublist-${ruleId}" class="space-y-2 text-slate-300 text-xs sm:text-sm leading-relaxed hidden">`;
                 items.forEach((item, idx) => {
                     const cleanItem = item.trim();
@@ -627,8 +622,8 @@
                             const canMoveDown = idx < items.length - 1;
                             subitemControls = `
                                 <div class="flex items-center space-x-1 ml-2 shrink-0">
-                                    ${canMoveUp ? `<button type="button" onclick="window.moveRuleSubitem('${ruleId}', ${idx}, -1)" title="Subir subsección" class="px-1.5 py-0.5 bg-sky-600/20 hover:bg-sky-600/40 text-sky-300 rounded text-[10px]"><i class="fa-solid fa-arrow-up"></i></button>` : ''}
-                                    ${canMoveDown ? `<button type="button" onclick="window.moveRuleSubitem('${ruleId}', ${idx}, 1)" title="Bajar subsección" class="px-1.5 py-0.5 bg-sky-600/20 hover:bg-sky-600/40 text-sky-300 rounded text-[10px]"><i class="fa-solid fa-arrow-down"></i></button>` : ''}
+                                    ${canMoveUp ? `<button type="button" onclick="window.moveRuleSubitem('${ruleId}',${idx}, -1)" title="Subir subsección" class="px-1.5 py-0.5 bg-sky-600/20 hover:bg-sky-600/40 text-sky-300 rounded text-[10px]"><i class="fa-solid fa-arrow-up"></i></button>` : ''}
+                                    ${canMoveDown ? `<button type="button" onclick="window.moveRuleSubitem('${ruleId}',${idx}, 1)" title="Bajar subsección" class="px-1.5 py-0.5 bg-sky-600/20 hover:bg-sky-600/40 text-sky-300 rounded text-[10px]"><i class="fa-solid fa-arrow-down"></i></button>` : ''}
                                 </div>
                             `;
                         }
@@ -692,7 +687,7 @@
                 }
 
                 contentHtml += `
-                    <section id="${secId}" class="mb-12 scroll-mt-24">
+                    <section id="${secId}" class="rule-section-block mb-12 scroll-mt-24">
                         <div class="flex items-center space-x-3 mb-6">
                             <div class="w-8 h-8 rounded-lg bg-sky-500/10 flex items-center justify-center text-sky-400 font-bold border border-sky-500/20">
                                 <i class="${section.sectionIcon} text-sm"></i>
@@ -732,7 +727,7 @@
                     const descriptionHtml = formatRuleText(item.description, item.id);
 
                     contentHtml += `
-                        <div class="bg-darkcard/95 backdrop-blur-sm border border-blue-900/40 rounded-2xl p-5 hover:border-sky-400/40 transition-colors shadow-sm">
+                        <div class="rule-card bg-darkcard/95 backdrop-blur-sm border border-blue-900/40 rounded-2xl p-5 hover:border-sky-400/40 transition-colors shadow-sm" data-searchable="${(item.code + ' ' + item.title + ' ' + item.description).toLowerCase()}">
                             <div class="flex items-start justify-between mb-2">
                                 <h3 class="text-base font-semibold text-white flex items-center space-x-2">
                                     <span class="text-sky-400 font-mono text-sm">${item.code}</span>
@@ -947,14 +942,36 @@
         sidebarOverlay.addEventListener('click', toggleSidebar);
 
         const searchInput = document.getElementById('search-input');
+        const mobileSearchInput = document.getElementById('mobile-search-input');
+
         function filterContent(query) {
             const term = query.toLowerCase().trim();
-            document.querySelectorAll('#rules-container section, #sistema-sanciones').forEach(section => {
-                const text = section.innerText.toLowerCase();
-                section.style.display = (term === '' || text.includes(term)) ? 'block' : 'none';
+            
+            // Filtrar tarjetas individuales de normativa
+            document.querySelectorAll('.rule-card').forEach(card => {
+                const text = card.getAttribute('data-searchable') || '';
+                card.style.display = (term === '' || text.includes(term)) ? 'block' : 'none';
+            });
+
+            // Ocultar secciones si todas sus tarjetas están ocultas
+            document.querySelectorAll('.rule-section-block').forEach(section => {
+                const visibleCards = section.querySelectorAll('.rule-card[style*="block"], .rule-card:not([style*="display: none"])');
+                if (term === '') {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = visibleCards.length > 0 ? 'block' : 'none';
+                }
+            });
+
+            // Filtrar filas de sanciones
+            document.querySelectorAll('.sanction-row').forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = (term === '' || text.includes(term)) ? 'flex' : 'none';
             });
         }
+
         if (searchInput) searchInput.addEventListener('input', (e) => filterContent(e.target.value));
+        if (mobileSearchInput) mobileSearchInput.addEventListener('input', (e) => filterContent(e.target.value));
 
         document.addEventListener('keydown', (e) => {
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
